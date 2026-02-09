@@ -87,9 +87,12 @@ export default function BlogPage() {
                   {/* Card */}
                   <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
                     {/* Post Image Placeholder */}
-                    <div className="relative aspect-video bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
-                      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
-                      <div className="relative z-10 text-6xl group-hover:scale-110 transition-transform duration-500">📝</div>
+                    <div className="relative aspect-video bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden">
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:32px_32px]" />
+                      {/* Simple icon instead of emoji */}
+                      <div className="relative w-16 h-16 border-2 border-white/20 rounded-lg group-hover:border-cyan-500/40 transition-colors">
+                        <div className="absolute inset-3 border-t-2 border-l-2 border-white/10 group-hover:border-cyan-500/30 transition-colors" />
+                      </div>
                     </div>
 
                     {/* Post Info */}
