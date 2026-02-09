@@ -9,12 +9,12 @@ export default function Home() {
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Background with visible gradients */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-black to-gray-950" />
-        <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-cyan-500/20 blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[50%] h-[50%] bg-blue-500/15 blur-[130px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-black to-zinc-950" />
+        <div className="absolute top-0 right-0 w-[60%] h-[60%] bg-gradient-to-bl from-cyan-500/15 via-cyan-500/5 to-transparent blur-[140px]" />
+        <div className="absolute bottom-0 left-0 w-[50%] h-[50%] bg-gradient-to-tr from-blue-500/12 via-purple-500/5 to-transparent blur-[130px]" />
         
-        {/* Visible grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:80px_80px]" />
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-32">
           {/* Badge */}
