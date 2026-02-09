@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import BackToTop from "./components/BackToTop";
+import CursorGlow from "./components/CursorGlow";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
+        <CursorGlow />
         <ScrollProgress />
         <Navigation />
         <BackToTop />
