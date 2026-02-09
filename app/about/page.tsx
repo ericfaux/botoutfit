@@ -1,13 +1,22 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
 
 export default function AboutPage() {
+  const heroRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  })
+  
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
   return (
     <main className="min-h-screen bg-black">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section ref={heroRef} className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
         
         {/* Floating orbs */}
@@ -24,7 +33,10 @@ export default function AboutPage() {
           }}
         />
         
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <motion.div 
+          style={{ y, opacity }}
+          className="max-w-4xl mx-auto text-center relative z-10"
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -54,7 +66,7 @@ export default function AboutPage() {
           >
             Building the future of personalization—one outfit at a time.
           </motion.p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Story Section */}
