@@ -231,18 +231,27 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
         >
           <div className="relative aspect-video bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl flex items-center justify-center overflow-hidden border border-white/10 backdrop-blur-xl">
             <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:40px_40px]" />
-            <motion.div
-              className="relative z-10 text-9xl"
-              animate={{
-                scale: [1, 1.05, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-              }}
-            >
-              🤖
-            </motion.div>
+            {/* Abstract shape instead of emoji */}
+            <div className="relative w-40 h-40">
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute inset-0 rounded-lg border-2 border-white/10"
+                  style={{
+                    margin: `${i * 15}%`,
+                  }}
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 3,
+                    delay: i * 0.3,
+                    repeat: Infinity,
+                  }}
+                />
+              ))}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
+            </div>
           </div>
         </motion.div>
       </section>
@@ -307,15 +316,12 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
                     
                     {/* Card */}
                     <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
-                      <div className="relative aspect-video bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
-                        <motion.div
-                          className="relative z-10 text-5xl"
-                          whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                          transition={{ duration: 0.4 }}
-                        >
-                          📝
-                        </motion.div>
+                      <div className="relative aspect-video bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:32px_32px]" />
+                        {/* Simple icon */}
+                        <div className="relative w-16 h-16 border-2 border-white/20 rounded-lg group-hover:border-cyan-500/40 transition-colors">
+                          <div className="absolute inset-3 border-t-2 border-l-2 border-white/10 group-hover:border-cyan-500/30 transition-colors" />
+                        </div>
                       </div>
                       
                       <div className="p-6">

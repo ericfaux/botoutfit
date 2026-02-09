@@ -32,7 +32,7 @@ export default function NotFound() {
       />
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 text-center">
-        {/* 404 Robot */}
+        {/* 404 Visual */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
@@ -42,9 +42,18 @@ export default function NotFound() {
             damping: 15,
             delay: 0.2
           }}
-          className="text-[12rem] mb-8"
+          className="relative w-48 h-48 mb-8"
         >
-          🤖
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 rounded-full border-2 border-white/10"
+              style={{ margin: `${i * 20}%` }}
+            />
+          ))}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-cyan-400">
+            404
+          </div>
         </motion.div>
 
         {/* Error code */}

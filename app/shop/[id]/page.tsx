@@ -61,18 +61,28 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 {/* Glow effect */}
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition duration-500 -z-10" />
                 
-                <motion.div
-                  className="relative z-10 text-9xl"
-                  animate={{
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                  }}
-                >
-                  🤖
-                </motion.div>
+                {/* Abstract visualization instead of emoji */}
+                <div className="relative z-10 w-48 h-48">
+                  {[...Array(3)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute inset-0 rounded-full border-2 border-white/10"
+                      style={{
+                        margin: `${i * 20}%`,
+                      }}
+                      animate={{
+                        opacity: [0.3, 0.6, 0.3],
+                        scale: [1, 1.05, 1],
+                      }}
+                      transition={{
+                        duration: 3,
+                        delay: i * 0.3,
+                        repeat: Infinity,
+                      }}
+                    />
+                  ))}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
+                </div>
                 
                 {/* Coming Soon Badge */}
                 <motion.div
@@ -194,9 +204,10 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 1.3 + (i * 0.05) }}
-                      className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:border-[#00D9FF]/30 hover:bg-white/10 transition-all"
+                      className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:border-cyan-500/30 hover:bg-white/10 transition-all"
                     >
-                      🤖 {model}
+                      <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                      {model}
                     </motion.div>
                   ))}
                 </div>
@@ -219,21 +230,21 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 className="mt-8 p-6 rounded-2xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 backdrop-blur-xl"
               >
                 <h2 className="text-2xl font-semibold text-white mb-6">Shipping & Returns</h2>
-                <div className="space-y-4 text-gray-300">
+                <div className="space-y-3 text-gray-300">
                   {[
-                    { icon: '🚚', text: 'Free shipping on orders over $200' },
-                    { icon: '↩️', text: '30-day return policy' },
-                    { icon: '✨', text: '1-year quality guarantee' }
+                    { text: 'Free shipping on orders over $200' },
+                    { text: '30-day return policy' },
+                    { text: '1-year quality guarantee' }
                   ].map((item, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 1.6 + (i * 0.1) }}
-                      className="flex items-start gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                      className="flex items-start gap-3 text-sm"
                     >
-                      <span className="text-2xl">{item.icon}</span>
-                      <span className="leading-relaxed pt-1">{item.text}</span>
+                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-1.5 flex-shrink-0" />
+                      <span className="leading-relaxed">{item.text}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -276,15 +287,14 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                     
                     {/* Card */}
                     <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
-                      <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
-                        <motion.div
-                          className="relative z-10 text-5xl"
-                          whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                          transition={{ duration: 0.4 }}
-                        >
-                          🤖
-                        </motion.div>
+                      <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:24px_24px]" />
+                        {/* Abstract shape */}
+                        <div className="relative w-20 h-20">
+                          <div className="absolute inset-0 border-2 border-white/10 rounded-full group-hover:border-cyan-500/30 transition-colors" />
+                          <div className="absolute inset-3 border border-white/5 rounded-full group-hover:border-cyan-500/20 transition-colors" />
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors" />
+                        </div>
                       </div>
                       
                       <div className="p-5">
