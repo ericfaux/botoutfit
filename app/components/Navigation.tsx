@@ -3,11 +3,20 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Navigation() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const links = [
     { href: '/', label: 'Home' },
@@ -24,16 +33,21 @@ export default function Navigation() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-xl"
+        className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+          scrolled
+            ? 'border-white/20 bg-black/95 backdrop-blur-2xl shadow-2xl shadow-black/50'
+            : 'border-white/10 bg-black/80 backdrop-blur-xl'
+        }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link 
               href="/" 
-              className="text-2xl font-black text-white hover:text-[#00D9FF] transition-colors"
+              className="group relative text-2xl font-black text-white hover:text-[#00D9FF] transition-colors"
             >
-              BotOutfit
+              <span className="relative z-10">BotOutfit</span>
+              <div className="absolute -inset-2 bg-[#00D9FF]/20 rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
             </Link>
 
             {/* Desktop Links */}
