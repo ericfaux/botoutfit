@@ -8,15 +8,15 @@ export default function Home() {
     <main className="min-h-screen bg-black overflow-hidden">
       {/* Hero - Sophisticated Tech */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Subtle mesh gradient background - inspired by reference */}
+        {/* Mesh gradient background with visible color */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-zinc-950 via-black to-zinc-950" />
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent blur-[200px]" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-500/10 via-transparent to-transparent blur-[180px]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-black to-gray-950" />
+          <div className="absolute top-0 right-0 w-[900px] h-[900px] bg-gradient-to-br from-cyan-500/25 via-cyan-500/10 to-transparent blur-[150px]" />
+          <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-to-tr from-blue-500/20 via-purple-500/10 to-transparent blur-[130px]" />
         </div>
         
-        {/* Subtle grid overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:64px_64px]" />
+        {/* Grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:64px_64px]" />
         
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 w-full py-32">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 items-center">
@@ -92,47 +92,48 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative h-[600px]"
             >
-              {/* Glassmorphic card */}
+              {/* Glassmorphic card with data viz */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 backdrop-blur-2xl overflow-hidden">
-                {/* Inner gradient glow */}
-                <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-cyan-500/10 to-transparent" />
+                {/* Inner gradient glow - more visible */}
+                <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-cyan-500/20 to-transparent" />
                 
-                {/* Abstract visualization - not emoji */}
+                {/* Data visualization */}
                 <div className="absolute inset-0 flex items-center justify-center p-12">
-                  {/* Concentric circles */}
-                  <div className="relative w-full aspect-square">
-                    {[...Array(4)].map((_, i) => (
+                  {/* Chart bars */}
+                  <div className="relative w-full h-full flex items-end justify-center gap-6">
+                    {[
+                      { height: '60%', delay: 0, color: 'from-cyan-400 to-cyan-600' },
+                      { height: '80%', delay: 0.1, color: 'from-blue-400 to-blue-600' },
+                      { height: '70%', delay: 0.2, color: 'from-purple-400 to-purple-600' },
+                      { height: '90%', delay: 0.3, color: 'from-cyan-400 to-cyan-600' },
+                      { height: '65%', delay: 0.4, color: 'from-blue-400 to-blue-600' },
+                    ].map((bar, i) => (
                       <motion.div
                         key={i}
-                        className="absolute inset-0 rounded-full border border-white/10"
-                        style={{
-                          margin: `${i * 15}%`,
-                        }}
-                        animate={{
-                          opacity: [0.3, 0.6, 0.3],
-                        }}
-                        transition={{
-                          duration: 3,
-                          delay: i * 0.3,
-                          repeat: Infinity,
+                        className={`w-12 rounded-t-lg bg-gradient-to-t ${bar.color} shadow-lg`}
+                        style={{ height: bar.height }}
+                        initial={{ height: 0 }}
+                        animate={{ height: bar.height }}
+                        transition={{ 
+                          duration: 1,
+                          delay: bar.delay,
+                          ease: "easeOut"
                         }}
                       />
                     ))}
-                    {/* Center dot */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
                   </div>
                 </div>
 
-                {/* Data points overlay */}
-                <div className="absolute bottom-8 left-8 right-8">
-                  <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-black/40 backdrop-blur-xl border border-white/10">
+                {/* Data overlay */}
+                <div className="absolute bottom-8 left-8 right-8 space-y-3">
+                  <div className="flex items-center justify-between px-4 py-3 rounded-lg bg-black/60 backdrop-blur-xl border border-white/10">
                     <div>
-                      <div className="text-xs text-zinc-500 mb-1">Featured</div>
-                      <div className="text-sm font-semibold text-white">Executive Suit</div>
+                      <div className="text-xs text-zinc-400 mb-1">Market Growth</div>
+                      <div className="text-lg font-bold text-white">+127%</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs text-zinc-500 mb-1">Tesla Optimus</div>
-                      <div className="text-sm font-semibold text-cyan-400">$199</div>
+                      <div className="text-xs text-zinc-400 mb-1">Q4 2026</div>
+                      <div className="text-sm font-semibold text-cyan-400">Launch Ready</div>
                     </div>
                   </div>
                 </div>
