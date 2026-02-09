@@ -7,6 +7,7 @@ import ScrollProgress from "./components/ScrollProgress";
 import BackToTop from "./components/BackToTop";
 import CursorGlow from "./components/CursorGlow";
 import StructuredData from "./components/StructuredData";
+import SkipToContent from "./components/SkipToContent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -66,15 +67,16 @@ export default function RootLayout({
         <StructuredData />
       </head>
       <body className={`${inter.className} antialiased`}>
+        <SkipToContent />
         <CursorGlow />
         <ScrollProgress />
         <Navigation />
         <BackToTop />
         
         {/* Main Content */}
-        <div className="pt-20">
+        <main id="main-content" className="pt-20">
           {children}
-        </div>
+        </main>
 
         <Footer />
       </body>
