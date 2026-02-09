@@ -13,11 +13,11 @@ export default function ShopPage() {
     : products.filter(p => p.category === filter)
 
   const categories = [
-    { value: 'all', label: 'All', count: products.length },
-    { value: 'outfits', label: 'Outfits', count: products.filter(p => p.category === 'outfits').length },
-    { value: 'accessories', label: 'Accessories', count: products.filter(p => p.category === 'accessories').length },
-    { value: 'protective', label: 'Protection', count: products.filter(p => p.category === 'protective').length },
-    { value: 'care', label: 'Care', count: products.filter(p => p.category === 'care').length },
+    { value: 'all', label: 'All', icon: '🤖', count: products.length },
+    { value: 'outfits', label: 'Outfits', icon: '👔', count: products.filter(p => p.category === 'outfits').length },
+    { value: 'accessories', label: 'Accessories', icon: '⚡', count: products.filter(p => p.category === 'accessories').length },
+    { value: 'protective', label: 'Protection', icon: '🛡️', count: products.filter(p => p.category === 'protective').length },
+    { value: 'care', label: 'Care', icon: '✨', count: products.filter(p => p.category === 'care').length },
   ]
 
   return (
@@ -69,21 +69,36 @@ export default function ShopPage() {
       </section>
 
       {/* Filter */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-16 z-40 bg-black/80 backdrop-blur-2xl border-b border-white/5">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-20 z-40 bg-black/90 backdrop-blur-2xl border-b border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map(cat => (
-              <button
+            {categories.map((cat, i) => (
+              <motion.button
                 key={cat.value}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.05 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setFilter(cat.value)}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                className={`relative px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   filter === cat.value
                     ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black shadow-lg shadow-[#00D9FF]/30'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20'
+                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20 backdrop-blur-xl'
                 }`}
               >
-                {cat.label} <span className="opacity-60">({cat.count})</span>
-              </button>
+                {/* Active glow */}
+                {filter === cat.value && (
+                  <motion.div
+                    layoutId="filterGlow"
+                    className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/30 to-[#00B8CC]/30 rounded-xl blur-md -z-10"
+                  />
+                )}
+                <span className="flex items-center gap-2">
+                  <span className="text-lg">{cat.icon}</span>
+                  {cat.label} <span className="opacity-60">({cat.count})</span>
+                </span>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -112,7 +127,19 @@ export default function ShopPage() {
                     {/* Image */}
                     <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
                       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
-                      <div className="relative z-10 text-7xl group-hover:scale-110 transition-transform duration-500">🤖</div>
+                      <motion.div 
+                        className="relative z-10 text-7xl"
+                        whileHover={{ 
+                          scale: 1.1,
+                          rotate: [0, -5, 5, -5, 0],
+                        }}
+                        transition={{ 
+                          rotate: { duration: 0.5 },
+                          scale: { duration: 0.3 }
+                        }}
+                      >
+                        🤖
+                      </motion.div>
                       
                       {/* Badge */}
                       <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/90 backdrop-blur-xl border border-white/20">
