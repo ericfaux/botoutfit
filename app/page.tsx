@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import Testimonials from './components/Testimonials'
 
 export default function Home() {
   return (
@@ -329,6 +330,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* Final CTA - Bold */}
       <section className="relative py-40 px-6 lg:px-12 overflow-hidden">
