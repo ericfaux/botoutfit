@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { products } from '@/lib/products'
 
 export default function ShopPage() {
@@ -12,7 +13,7 @@ export default function ShopPage() {
     : products.filter(p => p.category === filter)
 
   const categories = [
-    { value: 'all', label: 'All Products', count: products.length },
+    { value: 'all', label: 'All', count: products.length },
     { value: 'outfits', label: 'Outfits', count: products.filter(p => p.category === 'outfits').length },
     { value: 'accessories', label: 'Accessories', count: products.filter(p => p.category === 'accessories').length },
     { value: 'protective', label: 'Protection', count: products.filter(p => p.category === 'protective').length },
@@ -21,39 +22,67 @@ export default function ShopPage() {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00D9FF]/10 border border-[#00D9FF]/30 mb-8">
+      {/* Hero */}
+      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
+        
+        <motion.div
+          className="absolute top-20 right-20 w-96 h-96 rounded-full bg-purple-500/20 blur-[128px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-[#00D9FF]/30 backdrop-blur-xl mb-8"
+          >
             <div className="w-2 h-2 rounded-full bg-[#00D9FF] animate-pulse" />
-            <span className="text-[#00D9FF] text-sm font-medium">Coming Soon • Pre-Launch</span>
-          </div>
+            <span className="text-[#00D9FF] text-sm font-medium tracking-wide">Pre-Launch Collection</span>
+          </motion.div>
           
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+          >
             Shop <span className="text-[#00D9FF]">Robot Fashion</span>
-          </h1>
+          </motion.h1>
           
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Browse our complete collection of apparel, accessories, and protection gear designed specifically for personal robots.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-gray-300 max-w-2xl mx-auto"
+          >
+            Premium apparel and accessories designed for personal robots.
+          </motion.p>
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 border-b border-white/10">
+      {/* Filter */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-16 z-40 bg-black/80 backdrop-blur-2xl border-b border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map(cat => (
               <button
                 key={cat.value}
                 onClick={() => setFilter(cat.value)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all ${
+                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   filter === cat.value
-                    ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
+                    ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black shadow-lg shadow-[#00D9FF]/30'
+                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20'
                 }`}
               >
-                {cat.label} <span className="text-sm opacity-75">({cat.count})</span>
+                {cat.label} <span className="opacity-60">({cat.count})</span>
               </button>
             ))}
           </div>
@@ -64,106 +93,110 @@ export default function ShopPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map(product => (
-              <Link
+            {filteredProducts.map((product, i) => (
+              <motion.div
                 key={product.id}
-                href={`/shop/${product.id}`}
-                className="group relative bg-gradient-to-b from-white/5 to-white/0 border border-white/10 rounded-2xl overflow-hidden hover:border-[#00D9FF]/50 transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
               >
-                {/* Product Image Placeholder */}
-                <div className="relative aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center overflow-hidden">
-                  <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.1)_25%,rgba(0,217,255,0.1)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.1)_75%,rgba(0,217,255,0.1))] bg-[length:20px_20px]" />
-                  <div className="relative z-10 text-6xl">🤖</div>
+                <Link
+                  href={`/shop/${product.id}`}
+                  className="group relative block"
+                >
+                  {/* Hover glow */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500" />
                   
-                  {/* Coming Soon Badge */}
-                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/80 backdrop-blur-sm border border-white/20">
-                    <span className="text-[#00D9FF] text-xs font-semibold">Coming Soon</span>
-                  </div>
-                </div>
-
-                {/* Product Info */}
-                <div className="p-6">
-                  <div className="mb-2">
-                    <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wide">
-                      {product.category}
-                    </span>
-                  </div>
-                  
-                  <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-[#00D9FF] transition-colors">
-                    {product.name}
-                  </h3>
-                  
-                  <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                    {product.description}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="text-2xl font-bold text-white">
-                      ${product.price}
+                  {/* Card */}
+                  <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
+                    {/* Image */}
+                    <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
+                      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
+                      <div className="relative z-10 text-7xl group-hover:scale-110 transition-transform duration-500">🤖</div>
+                      
+                      {/* Badge */}
+                      <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/90 backdrop-blur-xl border border-white/20">
+                        <span className="text-[#00D9FF] text-xs font-semibold">Q4 2026</span>
+                      </div>
                     </div>
-                    <div className="text-[#00D9FF] group-hover:translate-x-1 transition-transform">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </div>
-                  </div>
 
-                  {/* Compatibility */}
-                  <div className="mt-4 pt-4 border-t border-white/10">
-                    <p className="text-xs text-gray-500 mb-2">Compatible with:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {product.compatibility.slice(0, 2).map(model => (
-                        <span key={model} className="text-xs bg-white/5 border border-white/10 px-2 py-1 rounded">
-                          {model}
+                    {/* Info */}
+                    <div className="p-6">
+                      <div className="mb-2">
+                        <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
+                          {product.category}
                         </span>
-                      ))}
-                      {product.compatibility.length > 2 && (
-                        <span className="text-xs text-gray-500">
-                          +{product.compatibility.length - 2} more
-                        </span>
-                      )}
+                      </div>
+                      
+                      <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#00D9FF] transition-colors line-clamp-2">
+                        {product.name}
+                      </h3>
+                      
+                      <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+                        {product.description}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                        <div className="text-2xl font-bold text-white">
+                          ${product.price}
+                        </div>
+                        <div className="text-[#00D9FF] group-hover:translate-x-2 transition-transform duration-300">
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
           </div>
 
-          {/* Empty State */}
           {filteredProducts.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-500">No products found in this category.</p>
+            <div className="text-center py-20">
+              <p className="text-gray-500 text-lg">No products in this category yet.</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Waitlist CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Be First to <span className="text-[#00D9FF]">Shop</span>
-          </h2>
-          <p className="text-xl text-gray-400 mb-12">
-            Join our waitlist to get early access when we launch. First 1,000 customers get 20% off.
-          </p>
+      {/* CTA */}
+      <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#00D9FF]/5 to-black" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00D9FF]/10 blur-[150px]" />
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+              First 1,000 Get <span className="text-[#00D9FF]">20% Off</span>
+            </h2>
+            <p className="text-xl text-gray-400 mb-12">
+              Join the waitlist and secure your early bird discount.
+            </p>
 
-          <div className="max-w-md mx-auto">
-            <form className="flex flex-col sm:flex-row gap-3">
-              <input 
-                type="email"
-                placeholder="Enter your email"
-                required
-                className="flex-1 px-6 py-4 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#00D9FF] focus:border-transparent transition-all"
-              />
-              <button 
-                type="submit"
-                className="px-8 py-4 rounded-lg bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-lg hover:shadow-[#00D9FF]/50 transition-all hover:scale-105"
-              >
-                Join Waitlist
-              </button>
+            <form className="max-w-md mx-auto relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition duration-500" />
+              <div className="relative flex gap-3 p-2 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
+                <input 
+                  type="email"
+                  placeholder="your@email.com"
+                  required
+                  className="flex-1 px-6 py-4 rounded-xl bg-transparent text-white placeholder-gray-400 focus:outline-none"
+                />
+                <button 
+                  type="submit"
+                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:scale-105 transition-transform"
+                >
+                  Join
+                </button>
+              </div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>
