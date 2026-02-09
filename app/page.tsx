@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import WaitlistForm from './components/WaitlistForm'
 
 export default function Home() {
   return (
@@ -174,22 +175,7 @@ export default function Home() {
             First 1,000 customers get 20% off at launch
           </p>
 
-          <form className="max-w-md mx-auto" id="waitlist">
-            <div className="flex gap-3">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                required
-                className="flex-1 px-6 py-4 rounded-lg bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500/50"
-              />
-              <button
-                type="submit"
-                className="px-8 py-4 rounded-lg bg-white text-black font-bold hover:bg-cyan-400 transition-all whitespace-nowrap"
-              >
-                Join Waitlist
-              </button>
-            </div>
-          </form>
+          <WaitlistForm />
         </div>
       </section>
     </main>

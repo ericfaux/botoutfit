@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import FooterWaitlistForm from './FooterWaitlistForm'
 
 export default function Footer() {
   const footerLinks = {
@@ -65,29 +66,7 @@ export default function Footer() {
               Get early access to new collections, exclusive drops, and robot care tips.
             </motion.p>
             
-            <motion.form
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="max-w-md mx-auto relative group"
-            >
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-xl blur-lg opacity-20 group-hover:opacity-40 transition duration-500" />
-              <div className="relative flex gap-2 p-1.5 bg-white/5 backdrop-blur-xl rounded-xl border border-white/10">
-                <input 
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                  className="flex-1 px-4 py-3 rounded-lg bg-transparent text-white placeholder-gray-400 focus:outline-none"
-                />
-                <button 
-                  type="submit"
-                  className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:scale-105 transition-transform whitespace-nowrap"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </motion.form>
+            <FooterWaitlistForm />
           </div>
         </div>
         
