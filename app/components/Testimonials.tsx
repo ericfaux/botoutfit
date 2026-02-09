@@ -8,19 +8,19 @@ export default function Testimonials() {
       quote: "Finally, someone gets it. My Optimus needs professional attire for client meetings.",
       author: "Sarah Chen",
       role: "CEO, TechVentures",
-      avatar: "👩‍💼"
+      initial: "S"
     },
     {
       quote: "The protective gear saved my Figure 01 from weather damage. Essential for outdoor work.",
       author: "Marcus Rodriguez",
       role: "Construction Manager",
-      avatar: "👷"
+      initial: "M"
     },
     {
       quote: "Game changer for our hospitality robots. Guests love the branded uniforms.",
       author: "Emily Park",
       role: "Hotel Director",
-      avatar: "👔"
+      initial: "E"
     }
   ]
 
@@ -87,7 +87,9 @@ export default function Testimonials() {
                 
                 {/* Author */}
                 <div className="flex items-center gap-4 pt-6 border-t border-white/5">
-                  <div className="text-4xl">{item.avatar}</div>
+                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-xl font-bold text-cyan-400">
+                    {item.initial}
+                  </div>
                   <div>
                     <div className="font-semibold text-white">{item.author}</div>
                     <div className="text-sm text-gray-500">{item.role}</div>
@@ -105,12 +107,12 @@ export default function Testimonials() {
           viewport={{ once: true }}
           className="mt-20 pt-12 border-t border-white/5"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { label: 'Industry Leaders', value: '50+', icon: '🏢' },
-              { label: 'Perfect Fit Rate', value: '99%', icon: '✓' },
-              { label: 'Support Response', value: '<1hr', icon: '⚡' },
-              { label: 'Customer Rating', value: '4.9/5', icon: '⭐' },
+              { label: 'Industry Leaders', value: '50+' },
+              { label: 'Perfect Fit Rate', value: '99%' },
+              { label: 'Support Response', value: '<1hr' },
+              { label: 'Customer Rating', value: '4.9/5' },
             ].map((badge, i) => (
               <motion.div
                 key={i}
@@ -118,13 +120,12 @@ export default function Testimonials() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group"
+                className="group text-center"
               >
-                <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{badge.icon}</div>
-                <div className="text-3xl font-black text-white mb-1 group-hover:text-[#00D9FF] transition-colors">
+                <div className="text-4xl font-black text-white mb-2 group-hover:text-cyan-400 transition-colors">
                   {badge.value}
                 </div>
-                <div className="text-sm text-gray-500">{badge.label}</div>
+                <div className="text-sm text-zinc-500">{badge.label}</div>
               </motion.div>
             ))}
           </div>
