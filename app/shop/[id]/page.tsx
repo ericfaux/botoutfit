@@ -1,12 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { getProductById, products } from '@/lib/products'
-
-export async function generateStaticParams() {
-  return products.map((product) => ({
-    id: product.id,
-  }))
-}
 
 export default function ProductPage({ params }: { params: { id: string } }) {
   const product = getProductById(params.id)
@@ -17,14 +14,33 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* Breadcrumb */}
-      <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-2 text-sm text-gray-400">
+      {/* Header with gradient orbs */}
+      <section className="relative pt-32 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
+        
+        {/* Gradient orbs */}
+        <motion.div
+          className="absolute top-20 right-10 w-96 h-96 rounded-full bg-[#00D9FF]/20 blur-[128px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2 text-sm text-gray-400"
+          >
             <Link href="/shop" className="hover:text-[#00D9FF] transition-colors">Shop</Link>
             <span>/</span>
-            <span className="text-white">{product.name}</span>
-          </div>
+            <span className="text-white truncate max-w-[200px]">{product.name}</span>
+          </motion.div>
         </div>
       </section>
 
@@ -33,144 +49,263 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Product Image */}
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center overflow-hidden border border-white/10">
-                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.1)_25%,rgba(0,217,255,0.1)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.1)_75%,rgba(0,217,255,0.1))] bg-[length:40px_40px]" />
-                <div className="relative z-10 text-9xl">🤖</div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl flex items-center justify-center overflow-hidden border border-white/10 backdrop-blur-xl group">
+                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:40px_40px]" />
+                
+                {/* Glow effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition duration-500 -z-10" />
+                
+                <motion.div
+                  className="relative z-10 text-9xl"
+                  animate={{
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                >
+                  🤖
+                </motion.div>
                 
                 {/* Coming Soon Badge */}
-                <div className="absolute top-6 right-6 px-4 py-2 rounded-full bg-black/80 backdrop-blur-sm border border-white/20">
-                  <span className="text-[#00D9FF] text-sm font-semibold">Coming Soon</span>
-                </div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.4, type: "spring" }}
+                  className="absolute top-6 right-6 px-4 py-2 rounded-full bg-black/90 backdrop-blur-xl border border-[#00D9FF]/30"
+                >
+                  <span className="text-[#00D9FF] text-sm font-semibold">Q4 2026</span>
+                </motion.div>
               </div>
 
               <p className="text-sm text-gray-500 mt-4 text-center">
                 Product mockup - Actual product may vary
               </p>
-            </div>
+            </motion.div>
 
             {/* Product Info */}
-            <div>
-              <div className="mb-4">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-[#00D9FF]/30 backdrop-blur-xl mb-6"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] animate-pulse" />
                 <span className="text-sm text-[#00D9FF] font-semibold uppercase tracking-wide">
                   {product.category}
                 </span>
-              </div>
+              </motion.div>
 
-              <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight"
+              >
                 {product.name}
-              </h1>
+              </motion.h1>
 
-              <div className="flex items-baseline gap-4 mb-6">
-                <span className="text-4xl font-bold text-white">${product.price}</span>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="flex items-baseline gap-4 mb-8"
+              >
+                <span className="text-5xl font-bold text-white">${product.price}</span>
                 {!product.inStock && (
-                  <span className="text-sm text-gray-500">Pre-order only</span>
+                  <span className="text-sm text-gray-500 px-3 py-1 rounded-full bg-white/5">Pre-order</span>
                 )}
-              </div>
+              </motion.div>
 
-              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="text-lg text-gray-300 mb-8 leading-relaxed"
+              >
                 {product.description}
-              </p>
+              </motion.p>
 
               {/* Notify Me Button */}
-              <div className="mb-8">
-                <button className="w-full sm:w-auto px-8 py-4 rounded-lg bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-lg hover:shadow-[#00D9FF]/50 transition-all hover:scale-105">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="mb-8 relative group"
+              >
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500" />
+                <button className="relative w-full sm:w-auto px-10 py-5 rounded-xl bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-2xl hover:shadow-[#00D9FF]/50 transition-all hover:scale-105">
                   Notify Me When Available
                 </button>
-              </div>
+              </motion.div>
 
               {/* Features */}
-              <div className="mb-8">
-                <h2 className="text-xl font-semibold text-white mb-4">Features</h2>
-                <ul className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9 }}
+                className="mb-8 p-6 rounded-2xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 backdrop-blur-xl"
+              >
+                <h2 className="text-2xl font-semibold text-white mb-6">Features</h2>
+                <ul className="space-y-4">
                   {product.features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-3 text-gray-300">
-                      <svg className="w-5 h-5 text-[#00D9FF] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>{feature}</span>
-                    </li>
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1 + (index * 0.1) }}
+                      className="flex items-start gap-3 text-gray-300"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-[#00D9FF]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-[#00D9FF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <span className="leading-relaxed">{feature}</span>
+                    </motion.li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
 
               {/* Compatibility */}
-              <div className="border-t border-white/10 pt-8">
-                <h2 className="text-xl font-semibold text-white mb-4">Compatibility</h2>
-                <div className="flex flex-wrap gap-3">
-                  {product.compatibility.map(model => (
-                    <div 
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+                className="p-6 rounded-2xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 backdrop-blur-xl"
+              >
+                <h2 className="text-2xl font-semibold text-white mb-6">Compatibility</h2>
+                <div className="flex flex-wrap gap-3 mb-6">
+                  {product.compatibility.map((model, i) => (
+                    <motion.div
                       key={model}
-                      className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1.3 + (i * 0.05) }}
+                      className="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white hover:border-[#00D9FF]/30 hover:bg-white/10 transition-all"
                     >
-                      {model}
-                    </div>
+                      🤖 {model}
+                    </motion.div>
                   ))}
                 </div>
                 <Link 
                   href="/compatibility" 
-                  className="inline-flex items-center gap-2 text-[#00D9FF] hover:text-[#00F0FF] transition-colors mt-4 text-sm"
+                  className="inline-flex items-center gap-2 text-[#00D9FF] hover:text-[#00F0FF] transition-colors text-sm group"
                 >
                   View full compatibility guide
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Shipping & Returns */}
-              <div className="border-t border-white/10 pt-8 mt-8">
-                <h2 className="text-xl font-semibold text-white mb-4">Shipping & Returns</h2>
-                <div className="space-y-3 text-gray-300 text-sm">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#00D9FF] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Free shipping on orders over $200</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#00D9FF] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>30-day return policy</span>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#00D9FF] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>1-year quality guarantee</span>
-                  </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 }}
+                className="mt-8 p-6 rounded-2xl bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 backdrop-blur-xl"
+              >
+                <h2 className="text-2xl font-semibold text-white mb-6">Shipping & Returns</h2>
+                <div className="space-y-4 text-gray-300">
+                  {[
+                    { icon: '🚚', text: 'Free shipping on orders over $200' },
+                    { icon: '↩️', text: '30-day return policy' },
+                    { icon: '✨', text: '1-year quality guarantee' }
+                  ].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.6 + (i * 0.1) }}
+                      className="flex items-start gap-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                    >
+                      <span className="text-2xl">{item.icon}</span>
+                      <span className="leading-relaxed pt-1">{item.text}</span>
+                    </motion.div>
+                  ))}
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Related Products */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-white mb-8">You Might Also Like</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl font-bold text-white mb-12"
+          >
+            You Might <span className="text-[#00D9FF]">Also Like</span>
+          </motion.h2>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {products
               .filter(p => p.category === product.category && p.id !== product.id)
               .slice(0, 4)
-              .map(relatedProduct => (
-                <Link
+              .map((relatedProduct, i) => (
+                <motion.div
                   key={relatedProduct.id}
-                  href={`/shop/${relatedProduct.id}`}
-                  className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-[#00D9FF]/50 transition-all"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
                 >
-                  <div className="relative aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                    <div className="text-4xl">🤖</div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-white font-semibold mb-2 group-hover:text-[#00D9FF] transition-colors line-clamp-1">
-                      {relatedProduct.name}
-                    </h3>
-                    <p className="text-lg font-bold text-white">${relatedProduct.price}</p>
-                  </div>
-                </Link>
+                  <Link
+                    href={`/shop/${relatedProduct.id}`}
+                    className="group relative block"
+                  >
+                    {/* Hover glow */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500" />
+                    
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
+                      <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
+                        <motion.div
+                          className="relative z-10 text-5xl"
+                          whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          🤖
+                        </motion.div>
+                      </div>
+                      
+                      <div className="p-5">
+                        <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
+                          {relatedProduct.category}
+                        </span>
+                        <h3 className="text-white font-semibold mt-2 mb-3 group-hover:text-[#00D9FF] transition-colors line-clamp-2 leading-tight">
+                          {relatedProduct.name}
+                        </h3>
+                        <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                          <p className="text-xl font-bold text-white">${relatedProduct.price}</p>
+                          <div className="text-[#00D9FF] group-hover:translate-x-2 transition-transform duration-300">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
           </div>
         </div>
