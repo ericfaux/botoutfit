@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --electric-blue: #00D9FF;
+  --metallic-silver: #C0C0C0;
+  --deep-black: #0A0A0A;
+}
+
+body {
+  color: white;
+  background: black;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
