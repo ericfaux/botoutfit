@@ -132,16 +132,14 @@ export default function CompatibilityPage() {
                   )}
                 </AnimatePresence>
 
-                <motion.div 
-                  className="text-6xl mb-6"
-                  animate={selectedRobot === robot.id ? {
-                    scale: [1, 1.1, 1],
-                    rotate: [0, -10, 10, 0]
-                  } : {}}
-                  transition={{ duration: 0.5 }}
-                >
-                  🤖
-                </motion.div>
+                {/* Abstract icon instead of emoji */}
+                <div className="relative w-16 h-16 mb-6">
+                  <div className="absolute inset-0 border-2 border-white/20 rounded-lg" />
+                  <div className="absolute inset-2 border border-white/10 rounded-md" />
+                  <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full transition-colors ${
+                    selectedRobot === robot.id ? 'bg-cyan-400' : 'bg-white/30'
+                  }`} />
+                </div>
                 
                 <h3 className="text-2xl font-semibold text-white mb-2">{robot.name}</h3>
                 <p className="text-sm text-gray-400 mb-6">{robot.manufacturer}</p>
@@ -208,21 +206,14 @@ export default function CompatibilityPage() {
                     >
                       <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition duration-500" />
                       <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-2xl overflow-hidden group-hover:border-[#00D9FF]/30 transition-all backdrop-blur-xl">
-                        <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
-                          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.03)_25%,rgba(0,217,255,0.03)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.03)_75%,rgba(0,217,255,0.03))] bg-[length:20px_20px]" />
-                          <motion.div
-                            className="relative z-10 text-5xl"
-                            whileHover={{ 
-                              scale: 1.15, 
-                              rotate: [0, -8, 8, 0]
-                            }}
-                            transition={{ 
-                              rotate: { duration: 0.4 },
-                              scale: { duration: 0.2 }
-                            }}
-                          >
-                            🤖
-                          </motion.div>
+                        <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden">
+                          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:24px_24px]" />
+                          {/* Abstract icon */}
+                          <div className="relative w-20 h-20">
+                            <div className="absolute inset-0 border-2 border-white/10 rounded-full group-hover:border-cyan-500/30 transition-colors" />
+                            <div className="absolute inset-3 border border-white/5 rounded-full group-hover:border-cyan-500/20 transition-colors" />
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors" />
+                          </div>
                         </div>
                         <div className="p-4">
                           <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
