@@ -210,13 +210,25 @@ export default function Home() {
                 whileHover={{ y: -8 }}
                 className="relative group"
               >
-                <div className="rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 p-10 hover:border-[#00D9FF]/50 transition-all">
-                  <div className="text-8xl mb-6">🤖</div>
-                  <h3 className="text-3xl font-black text-white mb-2 group-hover:text-[#00D9FF] transition-colors">
+                {/* Hover glow */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500" />
+                
+                <div className="relative rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 p-10 hover:border-[#00D9FF]/50 transition-all backdrop-blur-xl">
+                  <motion.div 
+                    className="text-8xl mb-6"
+                    whileHover={{ 
+                      scale: 1.1,
+                      rotate: [0, -5, 5, 0]
+                    }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    🤖
+                  </motion.div>
+                  <h3 className="text-3xl font-black text-white mb-4 group-hover:text-[#00D9FF] transition-colors">
                     {robot.name}
                   </h3>
                   <div className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${
-                    robot.badge === 'green' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400'
+                    robot.badge === 'green' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
                   }`}>
                     {robot.status}
                   </div>
@@ -247,20 +259,27 @@ export default function Home() {
             </h2>
 
             {/* Waitlist form */}
-            <form className="max-w-md mx-auto mb-12" id="waitlist">
-              <div className="flex gap-3">
-                <input 
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                  className="flex-1 px-6 py-5 rounded-xl bg-white/10 backdrop-blur-xl border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-[#00D9FF] transition-colors text-lg"
-                />
-                <button 
-                  type="submit"
-                  className="px-10 py-5 rounded-xl bg-white text-black font-bold text-lg hover:bg-[#00D9FF] hover:scale-105 transition-all"
-                >
-                  Join
-                </button>
+            <form className="max-w-md mx-auto mb-12 group" id="waitlist">
+              <div className="relative">
+                {/* Glow effect */}
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition duration-500" />
+                
+                <div className="relative flex gap-3 p-2 bg-white/5 backdrop-blur-2xl rounded-2xl border border-white/20">
+                  <input 
+                    type="email"
+                    placeholder="your@email.com"
+                    required
+                    className="flex-1 px-6 py-5 rounded-xl bg-transparent text-white placeholder-gray-400 focus:outline-none text-lg"
+                  />
+                  <motion.button 
+                    type="submit"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-10 py-5 rounded-xl bg-gradient-to-r from-white to-[#00D9FF] text-black font-bold text-lg shadow-lg shadow-white/20"
+                  >
+                    Join
+                  </motion.button>
+                </div>
               </div>
             </form>
 
@@ -270,23 +289,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
-      {/* Footer - Minimal */}
-      <footer className="border-t border-white/5 py-12 px-6 lg:px-12 bg-black">
-        <div className="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-8">
-          <div className="text-2xl font-black text-white">BotOutfit</div>
-          
-          <div className="flex gap-8 text-sm">
-            <Link href="/shop" className="text-gray-400 hover:text-white transition-colors">Shop</Link>
-            <Link href="/about" className="text-gray-400 hover:text-white transition-colors">About</Link>
-            <Link href="/compatibility" className="text-gray-400 hover:text-white transition-colors">Compatibility</Link>
-          </div>
-          
-          <div className="text-sm text-gray-500">
-            © 2026 BotOutfit. Defining robot fashion.
-          </div>
-        </div>
-      </footer>
     </main>
   )
 }
