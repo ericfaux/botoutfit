@@ -127,6 +127,7 @@ export default function ShopPage() {
                     {/* Image */}
                     <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
                       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
+                      
                       <motion.div 
                         className="relative z-10 text-7xl"
                         whileHover={{ 
@@ -140,6 +141,19 @@ export default function ShopPage() {
                       >
                         🤖
                       </motion.div>
+                      
+                      {/* Quick View Button - appears on hover */}
+                      <motion.button
+                        initial={{ opacity: 0, y: 10 }}
+                        whileHover={{ opacity: 1, y: 0 }}
+                        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl bg-white/90 backdrop-blur-xl text-black font-semibold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white z-20"
+                        onClick={(e) => {
+                          e.preventDefault()
+                          // Could open a modal here
+                        }}
+                      >
+                        Quick View
+                      </motion.button>
                       
                       {/* Badge */}
                       <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/90 backdrop-blur-xl border border-white/20">
