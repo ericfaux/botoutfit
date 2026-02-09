@@ -124,40 +124,31 @@ export default function ShopPage() {
                   
                   {/* Card */}
                   <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
-                    {/* Image */}
-                    <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
-                      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
+                    {/* Image - Abstract placeholder */}
+                    <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden group">
+                      {/* Subtle grid */}
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:32px_32px]" />
                       
-                      <motion.div 
-                        className="relative z-10 text-7xl"
-                        whileHover={{ 
-                          scale: 1.1,
-                          rotate: [0, -5, 5, -5, 0],
-                        }}
-                        transition={{ 
-                          rotate: { duration: 0.5 },
-                          scale: { duration: 0.3 }
-                        }}
-                      >
-                        🤖
-                      </motion.div>
+                      {/* Abstract shape instead of emoji */}
+                      <div className="relative z-10 w-32 h-32">
+                        <div className="absolute inset-0 border-2 border-white/10 rounded-full group-hover:border-cyan-500/30 transition-colors" />
+                        <div className="absolute inset-4 border border-white/5 rounded-full group-hover:border-cyan-500/20 transition-colors" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors" />
+                      </div>
                       
-                      {/* Quick View Button - appears on hover */}
-                      <motion.button
-                        initial={{ opacity: 0, y: 10 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-xl bg-white/90 backdrop-blur-xl text-black font-semibold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white z-20"
+                      {/* Quick View Button */}
+                      <button
+                        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-lg bg-white/10 backdrop-blur-xl text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-all border border-white/10 hover:bg-white/20 z-20"
                         onClick={(e) => {
                           e.preventDefault()
-                          // Could open a modal here
                         }}
                       >
                         Quick View
-                      </motion.button>
+                      </button>
                       
                       {/* Badge */}
-                      <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/90 backdrop-blur-xl border border-white/20">
-                        <span className="text-[#00D9FF] text-xs font-semibold">Q4 2026</span>
+                      <div className="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xl border border-white/10">
+                        <span className="text-cyan-400 text-xs font-medium">Q4 2026</span>
                       </div>
                     </div>
 
