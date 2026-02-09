@@ -1,12 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { motion } from 'framer-motion'
 import { getBlogPostById, blogPosts } from '@/lib/blog-posts'
-
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    id: post.id,
-  }))
-}
 
 // This is a placeholder. In a real app, you'd fetch the full content from a CMS or markdown files
 function getFullBlogContent(id: string) {
@@ -134,27 +131,74 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* Breadcrumb */}
-      <section className="pt-24 pb-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-2 text-sm text-gray-400 mb-8">
+      {/* Header with gradient orbs */}
+      <section className="relative pt-32 pb-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
+        
+        {/* Gradient orbs */}
+        <motion.div
+          className="absolute top-20 right-10 w-96 h-96 rounded-full bg-purple-500/20 blur-[128px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-10 w-80 h-80 rounded-full bg-[#00D9FF]/20 blur-[120px]"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            delay: 1,
+          }}
+        />
+        
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-2 text-sm text-gray-400 mb-8"
+          >
             <Link href="/blog" className="hover:text-[#00D9FF] transition-colors">Blog</Link>
             <span>/</span>
             <span className="text-white">{post.category}</span>
-          </div>
+          </motion.div>
 
           {/* Post Header */}
-          <div className="mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-[#00D9FF]/30 backdrop-blur-xl mb-6"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] animate-pulse" />
             <span className="text-[#00D9FF] font-semibold text-sm uppercase tracking-wide">
               {post.category}
             </span>
-          </div>
+          </motion.div>
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8 leading-tight"
+          >
             {post.title}
-          </h1>
+          </motion.h1>
 
-          <div className="flex items-center gap-6 text-sm text-gray-400">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex flex-wrap items-center gap-6 text-sm text-gray-400"
+          >
             <div className="flex items-center gap-2">
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -173,69 +217,126 @@ export default function BlogPostPage({ params }: { params: { id: string } }) {
               </svg>
               <span>{post.readTime}</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Featured Image */}
       <section className="px-4 sm:px-6 lg:px-8 mb-12">
-        <div className="max-w-4xl mx-auto">
-          <div className="relative aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl flex items-center justify-center overflow-hidden border border-white/10">
-            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.1)_25%,rgba(0,217,255,0.1)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.1)_75%,rgba(0,217,255,0.1))] bg-[length:40px_40px]" />
-            <div className="relative z-10 text-9xl">🤖</div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="relative aspect-video bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl flex items-center justify-center overflow-hidden border border-white/10 backdrop-blur-xl">
+            <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:40px_40px]" />
+            <motion.div
+              className="relative z-10 text-9xl"
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+              }}
+            >
+              🤖
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Blog Content */}
       <article className="px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="max-w-4xl mx-auto"
+        >
           <div 
             className="prose prose-invert prose-lg max-w-none
               prose-headings:text-white prose-headings:font-bold
               prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
               prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
               prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-              prose-a:text-[#00D9FF] prose-a:no-underline hover:prose-a:text-[#00F0FF]
+              prose-a:text-[#00D9FF] prose-a:no-underline hover:prose-a:text-[#00F0FF] hover:prose-a:underline
               prose-strong:text-white prose-strong:font-semibold
               prose-ul:text-gray-300 prose-ul:my-6
               prose-li:mb-2
               [&_.lead]:text-xl [&_.lead]:text-gray-200 [&_.lead]:mb-8
               [&_.cta-box]:bg-gradient-to-r [&_.cta-box]:from-[#00D9FF]/10 [&_.cta-box]:to-transparent
-              [&_.cta-box]:border-l-4 [&_.cta-box]:border-[#00D9FF] [&_.cta-box]:p-6 [&_.cta-box]:my-8
+              [&_.cta-box]:border-l-4 [&_.cta-box]:border-[#00D9FF] [&_.cta-box]:p-6 [&_.cta-box]:my-8 [&_.cta-box]:rounded-r-xl
             "
             dangerouslySetInnerHTML={{ __html: fullContent }}
           />
-        </div>
+        </motion.div>
       </article>
 
       {/* Related Posts */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/5">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white/[0.02]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-white mb-8">Read More</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl font-bold text-white mb-12"
+          >
+            Read <span className="text-[#00D9FF]">More</span>
+          </motion.h2>
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogPosts
               .filter(p => p.id !== post.id)
               .slice(0, 3)
-              .map(relatedPost => (
-                <Link
+              .map((relatedPost, i) => (
+                <motion.div
                   key={relatedPost.id}
-                  href={`/blog/${relatedPost.id}`}
-                  className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-[#00D9FF]/50 transition-all"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
                 >
-                  <div className="relative aspect-video bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                    <div className="text-4xl">📝</div>
-                  </div>
-                  <div className="p-6">
-                    <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wide">
-                      {relatedPost.category}
-                    </span>
-                    <h3 className="text-lg font-semibold text-white mt-2 mb-2 group-hover:text-[#00D9FF] transition-colors line-clamp-2">
-                      {relatedPost.title}
-                    </h3>
-                    <p className="text-sm text-gray-400">{relatedPost.readTime}</p>
-                  </div>
-                </Link>
+                  <Link
+                    href={`/blog/${relatedPost.id}`}
+                    className="group relative block"
+                  >
+                    {/* Hover glow */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500" />
+                    
+                    {/* Card */}
+                    <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
+                      <div className="relative aspect-video bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.05)_25%,rgba(0,217,255,0.05)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.05)_75%,rgba(0,217,255,0.05))] bg-[length:20px_20px]" />
+                        <motion.div
+                          className="relative z-10 text-5xl"
+                          whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                          transition={{ duration: 0.4 }}
+                        >
+                          📝
+                        </motion.div>
+                      </div>
+                      
+                      <div className="p-6">
+                        <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
+                          {relatedPost.category}
+                        </span>
+                        <h3 className="text-lg font-semibold text-white mt-3 mb-3 group-hover:text-[#00D9FF] transition-colors line-clamp-2">
+                          {relatedPost.title}
+                        </h3>
+                        <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                          <p className="text-sm text-gray-400">{relatedPost.readTime}</p>
+                          <div className="text-[#00D9FF] group-hover:translate-x-2 transition-transform duration-300">
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
           </div>
         </div>
