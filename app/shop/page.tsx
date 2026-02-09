@@ -13,11 +13,11 @@ export default function ShopPage() {
     : products.filter(p => p.category === filter)
 
   const categories = [
-    { value: 'all', label: 'All', icon: '🤖', count: products.length },
-    { value: 'outfits', label: 'Outfits', icon: '👔', count: products.filter(p => p.category === 'outfits').length },
-    { value: 'accessories', label: 'Accessories', icon: '⚡', count: products.filter(p => p.category === 'accessories').length },
-    { value: 'protective', label: 'Protection', icon: '🛡️', count: products.filter(p => p.category === 'protective').length },
-    { value: 'care', label: 'Care', icon: '✨', count: products.filter(p => p.category === 'care').length },
+    { value: 'all', label: 'All', count: products.length },
+    { value: 'outfits', label: 'Outfits', count: products.filter(p => p.category === 'outfits').length },
+    { value: 'accessories', label: 'Accessories', count: products.filter(p => p.category === 'accessories').length },
+    { value: 'protective', label: 'Protection', count: products.filter(p => p.category === 'protective').length },
+    { value: 'care', label: 'Care', count: products.filter(p => p.category === 'care').length },
   ]
 
   return (
@@ -94,8 +94,7 @@ export default function ShopPage() {
                     className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/30 to-[#00B8CC]/30 rounded-xl blur-md -z-10"
                   />
                 )}
-                <span className="flex items-center gap-2">
-                  <span className="text-lg">{cat.icon}</span>
+                <span>
                   {cat.label} <span className="opacity-60">({cat.count})</span>
                 </span>
               </motion.button>
