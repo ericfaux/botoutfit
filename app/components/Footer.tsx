@@ -23,10 +23,10 @@ export default function Footer() {
   }
 
   const socialLinks = [
-    { icon: '𝕏', href: '#', label: 'Twitter', color: 'hover:bg-blue-500/20 hover:border-blue-500/50' },
-    { icon: '📸', href: '#', label: 'Instagram', color: 'hover:bg-pink-500/20 hover:border-pink-500/50' },
-    { icon: '💼', href: '#', label: 'LinkedIn', color: 'hover:bg-blue-600/20 hover:border-blue-600/50' },
-    { icon: '🤖', href: '#', label: 'Discord', color: 'hover:bg-purple-500/20 hover:border-purple-500/50' },
+    { label: 'Twitter', href: '#', color: 'bg-blue-500' },
+    { label: 'Instagram', href: '#', color: 'bg-pink-500' },
+    { label: 'LinkedIn', href: '#', color: 'bg-blue-600' },
+    { label: 'Discord', href: '#', color: 'bg-purple-500' },
   ]
 
   return (
@@ -115,10 +115,10 @@ export default function Footer() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.1, y: -2 }}
-                  className={`w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-xl transition-all ${social.color}`}
+                  className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 hover:border-white/30 flex items-center justify-center transition-all"
                   aria-label={social.label}
                 >
-                  {social.icon}
+                  <div className={`w-2 h-2 rounded-full ${social.color}`} />
                 </motion.a>
               ))}
             </div>
@@ -193,14 +193,10 @@ export default function Footer() {
               </div>
             </div>
             
-            <motion.div 
-              className="flex items-center gap-2 text-sm text-gray-500"
-              whileHover={{ scale: 1.05 }}
-            >
-              <span>Powered by</span>
-              <span className="text-[#00D9FF]">🤖</span>
-              <span className="font-semibold text-white">Innovation</span>
-            </motion.div>
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span>Built for the future of</span>
+              <span className="font-semibold text-cyan-400">robotics</span>
+            </div>
           </div>
         </div>
       </div>
