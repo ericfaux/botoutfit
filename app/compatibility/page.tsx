@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
 import { getCompatibleProducts } from '@/lib/products'
 
 const robotModels = [
@@ -9,67 +10,31 @@ const robotModels = [
     id: 'tesla-optimus-1',
     name: 'Tesla Optimus Gen 1',
     manufacturer: 'Tesla',
-    height: '5\'8" (173cm)',
+    height: '5\'8"',
     torso: '42cm',
     arms: '65cm',
-    weight: '161 lbs (73 kg)',
-    status: 'Coming Q4 2026',
-    image: '🤖'
-  },
-  {
-    id: 'tesla-optimus-2',
-    name: 'Tesla Optimus Gen 2',
-    manufacturer: 'Tesla',
-    height: '5\'8" (173cm)',
-    torso: '42cm',
-    arms: '65cm',
-    weight: '157 lbs (71 kg)',
-    status: 'Coming 2027',
-    image: '🤖'
+    status: 'Q4 2026',
+    statusColor: 'yellow'
   },
   {
     id: 'figure-01',
     name: 'Figure 01',
     manufacturer: 'Figure AI',
-    height: '5\'6" (168cm)',
+    height: '5\'6"',
     torso: '40cm',
     arms: '63cm',
-    weight: '130 lbs (59 kg)',
-    status: 'Shipping to Enterprise',
-    image: '🤖'
+    status: 'Shipping',
+    statusColor: 'green'
   },
   {
     id: 'unitree-g1',
     name: 'Unitree G1',
-    manufacturer: 'Unitree Robotics',
-    height: '5\'2" (160cm)',
+    manufacturer: 'Unitree',
+    height: '5\'2"',
     torso: '38cm',
     arms: '60cm',
-    weight: '77 lbs (35 kg)',
-    status: 'Available Now',
-    image: '🤖'
-  },
-  {
-    id: 'boston-dynamics-atlas',
-    name: 'Boston Dynamics Atlas',
-    manufacturer: 'Boston Dynamics',
-    height: '6\'2" (188cm)',
-    torso: '45cm',
-    arms: '70cm',
-    weight: '196 lbs (89 kg)',
-    status: 'Research Platform',
-    image: '🤖'
-  },
-  {
-    id: 'sanctuary-phoenix',
-    name: 'Sanctuary AI Phoenix',
-    manufacturer: 'Sanctuary AI',
-    height: '5\'7" (170cm)',
-    torso: '41cm',
-    arms: '64cm',
-    weight: '155 lbs (70 kg)',
-    status: 'Coming 2026',
-    image: '🤖'
+    status: 'Available',
+    statusColor: 'green'
   },
 ]
 
@@ -82,196 +47,247 @@ export default function CompatibilityPage() {
 
   return (
     <main className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
-            Compatibility <span className="text-[#00D9FF]">Guide</span>
-          </h1>
+      {/* Hero */}
+      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
+        
+        <motion.div
+          className="absolute top-20 left-20 w-96 h-96 rounded-full bg-[#00D9FF]/20 blur-[128px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+          >
+            Perfect <span className="text-[#00D9FF]">Fit</span> Guaranteed
+          </motion.h1>
           
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Find the perfect fit for your robot. Select your model below to see compatible products.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-300 max-w-2xl mx-auto"
+          >
+            Model-specific sizing for every robot. Select yours below.
+          </motion.p>
         </div>
       </section>
 
       {/* Robot Selection */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">Select Your Robot Model</h2>
-          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {robotModels.map(robot => (
-              <button
+            {robotModels.map((robot, i) => (
+              <motion.button
                 key={robot.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
                 onClick={() => setSelectedRobot(robot.id)}
-                className={`relative p-6 rounded-2xl text-left transition-all ${
+                whileHover={{ scale: 1.02, y: -4 }}
+                whileTap={{ scale: 0.98 }}
+                className={`relative p-8 rounded-3xl text-left transition-all duration-300 ${
                   selectedRobot === robot.id
-                    ? 'bg-gradient-to-br from-[#00D9FF]/20 to-[#00B8CC]/10 border-2 border-[#00D9FF]'
-                    : 'bg-white/5 border border-white/10 hover:border-white/30'
+                    ? 'bg-gradient-to-br from-[#00D9FF]/20 to-purple-500/10 border-2 border-[#00D9FF] shadow-2xl shadow-[#00D9FF]/20'
+                    : 'bg-white/5 border border-white/10 hover:border-white/30 backdrop-blur-xl'
                 }`}
               >
-                {/* Selected Indicator */}
-                {selectedRobot === robot.id && (
-                  <div className="absolute top-4 right-4 w-6 h-6 rounded-full bg-[#00D9FF] flex items-center justify-center">
-                    <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                )}
+                {/* Selected indicator */}
+                <AnimatePresence>
+                  {selectedRobot === robot.id && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0 }}
+                      className="absolute top-6 right-6 w-8 h-8 rounded-full bg-[#00D9FF] flex items-center justify-center"
+                    >
+                      <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                <div className="text-5xl mb-4">{robot.image}</div>
+                <div className="text-6xl mb-6">🤖</div>
                 
-                <h3 className="text-xl font-semibold text-white mb-2">{robot.name}</h3>
-                <p className="text-sm text-gray-400 mb-4">{robot.manufacturer}</p>
+                <h3 className="text-2xl font-semibold text-white mb-2">{robot.name}</h3>
+                <p className="text-sm text-gray-400 mb-6">{robot.manufacturer}</p>
 
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Height:</span>
-                    <span className="text-white">{robot.height}</span>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">Height</span>
+                    <span className="text-white font-medium">{robot.height}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Torso:</span>
-                    <span className="text-white">{robot.torso}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">Torso</span>
+                    <span className="text-white font-medium">{robot.torso}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Arms:</span>
-                    <span className="text-white">{robot.arms}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-500">Arms</span>
+                    <span className="text-white font-medium">{robot.arms}</span>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    robot.status.includes('Available')
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <span className={`inline-block px-3 py-1.5 rounded-full text-xs font-medium ${
+                    robot.statusColor === 'green'
                       ? 'bg-green-500/20 text-green-400'
                       : 'bg-yellow-500/20 text-yellow-400'
                   }`}>
                     {robot.status}
                   </span>
                 </div>
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
       </section>
 
       {/* Compatible Products */}
-      {selectedRobot && (
-        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white/5">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl font-bold text-white mb-8">
-              Compatible Products for{' '}
-              <span className="text-[#00D9FF]">
-                {robotModels.find(r => r.id === selectedRobot)?.name}
-              </span>
-            </h2>
+      <AnimatePresence mode="wait">
+        {selectedRobot && (
+          <motion.section
+            key={selectedRobot}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="py-16 px-4 sm:px-6 lg:px-8 bg-white/[0.02]"
+          >
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-4xl font-bold text-white mb-12 text-center">
+                Compatible with{' '}
+                <span className="text-[#00D9FF]">
+                  {robotModels.find(r => r.id === selectedRobot)?.name}
+                </span>
+              </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {compatibleProducts.map(product => (
-                <Link
-                  key={product.id}
-                  href={`/shop/${product.id}`}
-                  className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-[#00D9FF]/50 transition-all"
-                >
-                  <div className="relative aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                    <div className="text-4xl">🤖</div>
-                    <div className="absolute top-3 right-3 px-2 py-1 rounded bg-black/80 backdrop-blur-sm">
-                      <span className="text-[#00D9FF] text-xs font-semibold">Coming Soon</span>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wide">
-                      {product.category}
-                    </span>
-                    <h3 className="text-white font-semibold mt-2 mb-2 group-hover:text-[#00D9FF] transition-colors line-clamp-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-lg font-bold text-white">${product.price}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {compatibleProducts.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-gray-400">No compatible products found for this model yet.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {compatibleProducts.map((product, i) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <Link
+                      href={`/shop/${product.id}`}
+                      className="group block relative"
+                    >
+                      <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition duration-500" />
+                      <div className="relative bg-white/5 border border-white/10 rounded-2xl overflow-hidden group-hover:border-[#00D9FF]/30 transition-all backdrop-blur-xl">
+                        <div className="relative aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                          <div className="text-5xl group-hover:scale-110 transition-transform duration-500">🤖</div>
+                        </div>
+                        <div className="p-4">
+                          <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
+                            {product.category}
+                          </span>
+                          <h3 className="text-white font-semibold mt-2 mb-2 group-hover:text-[#00D9FF] transition-colors line-clamp-2">
+                            {product.name}
+                          </h3>
+                          <p className="text-lg font-bold text-white">${product.price}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
               </div>
-            )}
-          </div>
-        </section>
-      )}
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
 
-      {/* Size Guide Section */}
+      {/* Size Chart */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Universal Size Chart</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl font-bold text-white mb-12 text-center"
+          >
+            Universal Size <span className="text-[#00D9FF]">Chart</span>
+          </motion.h2>
           
-          <div className="overflow-x-auto">
-            <table className="w-full border border-white/10 rounded-lg overflow-hidden">
-              <thead className="bg-white/5">
-                <tr>
-                  <th className="px-6 py-4 text-left text-white font-semibold">Size</th>
-                  <th className="px-6 py-4 text-left text-white font-semibold">Height</th>
-                  <th className="px-6 py-4 text-left text-white font-semibold">Torso Width</th>
-                  <th className="px-6 py-4 text-left text-white font-semibold">Arm Length</th>
-                  <th className="px-6 py-4 text-left text-white font-semibold">Compatible Models</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-white font-medium">XS</td>
-                  <td className="px-6 py-4 text-gray-300">5'0" - 5'4"</td>
-                  <td className="px-6 py-4 text-gray-300">38-40cm</td>
-                  <td className="px-6 py-4 text-gray-300">60-63cm</td>
-                  <td className="px-6 py-4 text-gray-300">Custom/Small Bots</td>
-                </tr>
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-white font-medium">S</td>
-                  <td className="px-6 py-4 text-gray-300">5'4" - 5'8"</td>
-                  <td className="px-6 py-4 text-gray-300">40-42cm</td>
-                  <td className="px-6 py-4 text-gray-300">63-66cm</td>
-                  <td className="px-6 py-4 text-gray-300">Figure 01, Unitree G1</td>
-                </tr>
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-white font-medium">M</td>
-                  <td className="px-6 py-4 text-gray-300">5'8" - 6'0"</td>
-                  <td className="px-6 py-4 text-gray-300">42-45cm</td>
-                  <td className="px-6 py-4 text-gray-300">66-70cm</td>
-                  <td className="px-6 py-4 text-gray-300">Tesla Optimus, Sanctuary Phoenix</td>
-                </tr>
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-white font-medium">L</td>
-                  <td className="px-6 py-4 text-gray-300">6'0" - 6'2"</td>
-                  <td className="px-6 py-4 text-gray-300">45-48cm</td>
-                  <td className="px-6 py-4 text-gray-300">70-73cm</td>
-                  <td className="px-6 py-4 text-gray-300">Boston Dynamics Atlas</td>
-                </tr>
-                <tr className="hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 text-white font-medium">XL</td>
-                  <td className="px-6 py-4 text-gray-300">6'2" - 6'6"</td>
-                  <td className="px-6 py-4 text-gray-300">48-50cm</td>
-                  <td className="px-6 py-4 text-gray-300">73-75cm</td>
-                  <td className="px-6 py-4 text-gray-300">Large Industrial Bots</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="overflow-x-auto"
+          >
+            <div className="min-w-[800px] bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-white/5">
+                  <tr>
+                    {['Size', 'Height', 'Torso', 'Arms', 'Models'].map((header) => (
+                      <th key={header} className="px-6 py-4 text-left text-white font-semibold text-sm">
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {[
+                    { size: 'S', height: '5\'4" - 5\'8"', torso: '40-42cm', arms: '63-66cm', models: 'Figure 01, Unitree G1' },
+                    { size: 'M', height: '5\'8" - 6\'0"', torso: '42-45cm', arms: '66-70cm', models: 'Tesla Optimus' },
+                    { size: 'L', height: '6\'0" - 6\'2"', torso: '45-48cm', arms: '70-73cm', models: 'Atlas' },
+                  ].map((row, i) => (
+                    <motion.tr
+                      key={row.size}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1 }}
+                      className="hover:bg-white/5 transition-colors"
+                    >
+                      <td className="px-6 py-4 text-white font-medium">{row.size}</td>
+                      <td className="px-6 py-4 text-gray-300">{row.height}</td>
+                      <td className="px-6 py-4 text-gray-300">{row.torso}</td>
+                      <td className="px-6 py-4 text-gray-300">{row.arms}</td>
+                      <td className="px-6 py-4 text-gray-300">{row.models}</td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Don't See Your Robot CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-black to-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Don't See Your Robot?</h2>
-          <p className="text-gray-400 mb-8">
-            We're constantly adding support for new models. Let us know which robot you have and we'll prioritize it.
-          </p>
-          <a 
-            href="mailto:hello@botoutfit.com?subject=Robot Model Request"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-lg hover:shadow-[#00D9FF]/50 transition-all hover:scale-105"
+      {/* CTA */}
+      <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#00D9FF]/5 to-black" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/10 blur-[150px]" />
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
           >
-            Request Robot Model Support
-          </a>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Don't See Your Robot?
+            </h2>
+            <p className="text-xl text-gray-400 mb-8">
+              Let us know which model you have and we'll prioritize it.
+            </p>
+            <a 
+              href="mailto:hello@botoutfit.com?subject=Robot Model Request"
+              className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-2xl hover:shadow-[#00D9FF]/50 transition-all duration-300 hover:scale-105"
+            >
+              Request Support
+            </a>
+          </motion.div>
         </div>
       </section>
     </main>
