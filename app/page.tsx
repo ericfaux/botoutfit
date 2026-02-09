@@ -48,35 +48,64 @@ export default function Home() {
               </p>
 
               {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
                 <Link
                   href="#waitlist"
-                  className="group relative px-8 py-5 bg-white text-black font-bold text-lg rounded-xl overflow-hidden hover:scale-105 transition-transform"
+                  className="group relative px-8 py-5 bg-white text-black font-bold text-lg rounded-xl overflow-hidden"
                 >
+                  {/* Animated gradient background */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-[#00D9FF] to-purple-500"
+                    initial={{ x: '100%' }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
                   <span className="relative z-10">Join Waitlist</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#00D9FF] to-white opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
                 <Link
                   href="/shop"
-                  className="px-8 py-5 border-2 border-white/20 text-white font-bold text-lg rounded-xl hover:bg-white/5 transition-all"
+                  className="group relative px-8 py-5 border-2 border-white/20 text-white font-bold text-lg rounded-xl overflow-hidden"
                 >
-                  View Collection
+                  <div className="absolute inset-0 bg-white/5 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+                  <span className="relative z-10 flex items-center gap-2">
+                    View Collection
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/10">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="grid grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/10"
+              >
                 {[
-                  { num: '25+', label: 'Products' },
-                  { num: '6', label: 'Robot Models' },
-                  { num: '2.3K+', label: 'Waitlist' },
+                  { num: '25+', label: 'Products', icon: '🤖' },
+                  { num: '6', label: 'Robot Models', icon: '⚡' },
+                  { num: '2.3K+', label: 'Waitlist', icon: '🚀' },
                 ].map((stat, i) => (
-                  <div key={i}>
-                    <div className="text-4xl font-black text-white mb-1">{stat.num}</div>
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.7 + (i * 0.1) }}
+                    className="group cursor-default"
+                  >
+                    <div className="text-sm text-gray-500 mb-2 opacity-0 group-hover:opacity-100 transition-opacity">{stat.icon}</div>
+                    <div className="text-4xl font-black text-white mb-1 group-hover:text-[#00D9FF] transition-colors">{stat.num}</div>
                     <div className="text-sm text-gray-500 uppercase tracking-wide">{stat.label}</div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
 
             {/* Right: Product Visual */}
@@ -84,30 +113,74 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="relative h-[600px]"
+              className="relative h-[600px] group"
             >
+              {/* Glow effect */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-3xl opacity-50 group-hover:opacity-75 transition duration-500" />
+              
               {/* Large product card */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/20 backdrop-blur-2xl overflow-hidden">
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/20 backdrop-blur-2xl overflow-hidden group-hover:border-[#00D9FF]/40 transition-all duration-500">
                 {/* Inner glow */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#00D9FF]/20 via-transparent to-orange-500/10" />
                 
+                {/* Animated grid pattern */}
+                <motion.div 
+                  className="absolute inset-0 bg-[linear-gradient(to_right,#00D9FF08_1px,transparent_1px),linear-gradient(to_bottom,#00D9FF08_1px,transparent_1px)] bg-[size:40px_40px]"
+                  animate={{
+                    opacity: [0.3, 0.5, 0.3]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity
+                  }}
+                />
+                
                 {/* Robot silhouette */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-[20rem] opacity-40 select-none">🤖</div>
+                  <motion.div 
+                    className="text-[20rem] opacity-40 select-none"
+                    animate={{
+                      scale: [1, 1.02, 1],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity
+                    }}
+                  >
+                    🤖
+                  </motion.div>
                 </div>
                 
                 {/* Overlay text */}
-                <div className="absolute bottom-8 left-8 right-8">
-                  <div className="text-sm text-gray-400 uppercase tracking-widest mb-2">Featured</div>
-                  <div className="text-3xl font-bold text-white mb-2">Executive Suit</div>
+                <motion.div 
+                  className="absolute bottom-8 left-8 right-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D9FF]/10 border border-[#00D9FF]/30 mb-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] animate-pulse" />
+                    <div className="text-xs text-[#00D9FF] uppercase tracking-widest font-semibold">Featured</div>
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2 group-hover:text-[#00D9FF] transition-colors">Executive Suit</div>
                   <div className="text-xl text-gray-300">Tesla Optimus Edition • $199</div>
-                </div>
+                </motion.div>
               </div>
               
               {/* Floating badge */}
-              <div className="absolute -top-4 -right-4 px-6 py-3 bg-orange-500 text-black font-bold text-sm rounded-xl rotate-3 shadow-2xl">
+              <motion.div 
+                className="absolute -top-4 -right-4 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-black font-bold text-sm rounded-xl shadow-2xl shadow-orange-500/50"
+                animate={{
+                  rotate: [3, -2, 3],
+                  y: [0, -5, 0]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity
+                }}
+              >
                 Coming Q4 2026
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -133,11 +206,11 @@ export default function Home() {
           {/* Masonry-style grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { title: 'Executive', count: '3', color: 'from-blue-500/20', size: 'lg:row-span-2' },
-              { title: 'Casual', count: '5', color: 'from-purple-500/20' },
-              { title: 'Athletic', count: '2', color: 'from-green-500/20' },
-              { title: 'Protection', count: '4', color: 'from-orange-500/20', size: 'md:col-span-2' },
-              { title: 'Accessories', count: '10', color: 'from-pink-500/20' },
+              { title: 'Executive', count: '3', color: 'from-blue-500/20', size: 'lg:row-span-2', emoji: '👔' },
+              { title: 'Casual', count: '5', color: 'from-purple-500/20', emoji: '👕' },
+              { title: 'Athletic', count: '2', color: 'from-green-500/20', emoji: '⚡' },
+              { title: 'Protection', count: '4', color: 'from-orange-500/20', size: 'md:col-span-2', emoji: '🛡️' },
+              { title: 'Accessories', count: '10', color: 'from-pink-500/20', emoji: '✨' },
             ].map((cat, i) => (
               <motion.div
                 key={i}
@@ -147,17 +220,29 @@ export default function Home() {
                 transition={{ delay: i * 0.1 }}
                 className={`group relative ${cat.size || ''}`}
               >
+                {/* Glow on hover */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition duration-500" />
+                
                 <Link
                   href="/shop"
-                  className="block h-full min-h-[300px] rounded-2xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 p-8 hover:border-white/30 transition-all overflow-hidden"
+                  className="relative block h-full min-h-[300px] rounded-3xl bg-gradient-to-br from-white/10 to-white/[0.02] border border-white/10 p-8 hover:border-[#00D9FF]/30 transition-all overflow-hidden backdrop-blur-xl"
                 >
                   {/* Background gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} to-transparent opacity-50`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} to-transparent opacity-50 group-hover:opacity-70 transition-opacity`} />
+                  
+                  {/* Animated grid */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px] opacity-0 group-hover:opacity-100 transition-opacity" />
                   
                   {/* Content */}
                   <div className="relative z-10 h-full flex flex-col justify-between">
                     <div>
-                      <div className="text-5xl mb-4">🤖</div>
+                      <motion.div 
+                        className="text-6xl mb-4"
+                        whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {cat.emoji}
+                      </motion.div>
                       <h3 className="text-4xl font-black text-white mb-2 group-hover:text-[#00D9FF] transition-colors">
                         {cat.title}
                       </h3>
@@ -166,9 +251,15 @@ export default function Home() {
                     
                     <div className="flex items-center gap-2 text-white group-hover:gap-4 transition-all">
                       <span className="font-semibold">Shop Now</span>
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <motion.svg 
+                        className="w-5 h-5" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                        whileHover={{ x: 5 }}
+                      >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
+                      </motion.svg>
                     </div>
                   </div>
                 </Link>
