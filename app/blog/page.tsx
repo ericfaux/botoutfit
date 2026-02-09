@@ -1,19 +1,68 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { blogPosts } from '@/lib/blog-posts'
 
 export default function BlogPage() {
   return (
     <main className="min-h-screen bg-black">
       {/* Hero Section */}
-      <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
-            Robot Fashion <span className="text-[#00D9FF]">Blog</span>
-          </h1>
+      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
+        
+        {/* Gradient orbs */}
+        <motion.div
+          className="absolute top-20 right-20 w-96 h-96 rounded-full bg-purple-500/20 blur-[128px]"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-20 w-80 h-80 rounded-full bg-[#00D9FF]/20 blur-[120px]"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            delay: 1,
+          }}
+        />
+        
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-[#00D9FF]/30 backdrop-blur-xl mb-8"
+          >
+            <div className="w-2 h-2 rounded-full bg-[#00D9FF] animate-pulse" />
+            <span className="text-[#00D9FF] text-sm font-medium tracking-wide">Insights & Updates</span>
+          </motion.div>
           
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+          >
+            Robot Fashion <span className="text-[#00D9FF]">Blog</span>
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-xl text-gray-300 max-w-2xl mx-auto"
+          >
             Insights, guides, and news about the future of robot personalization.
-          </p>
+          </motion.p>
         </div>
       </section>
 
