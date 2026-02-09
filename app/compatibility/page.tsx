@@ -102,14 +102,28 @@ export default function CompatibilityPage() {
                     : 'bg-white/5 border border-white/10 hover:border-white/30 backdrop-blur-xl'
                 }`}
               >
+                {/* Pulsing glow for selected */}
+                <AnimatePresence>
+                  {selectedRobot === robot.id && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: [0.3, 0.6, 0.3] }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="absolute -inset-2 bg-gradient-to-r from-[#00D9FF]/30 to-purple-500/30 rounded-3xl blur-xl -z-10"
+                    />
+                  )}
+                </AnimatePresence>
+                
                 {/* Selected indicator */}
                 <AnimatePresence>
                   {selectedRobot === robot.id && (
                     <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      exit={{ scale: 0 }}
-                      className="absolute top-6 right-6 w-8 h-8 rounded-full bg-[#00D9FF] flex items-center justify-center"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      exit={{ scale: 0, rotate: 180 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                      className="absolute top-6 right-6 w-8 h-8 rounded-full bg-[#00D9FF] flex items-center justify-center shadow-lg shadow-[#00D9FF]/50"
                     >
                       <svg className="w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
@@ -118,7 +132,16 @@ export default function CompatibilityPage() {
                   )}
                 </AnimatePresence>
 
-                <div className="text-6xl mb-6">🤖</div>
+                <motion.div 
+                  className="text-6xl mb-6"
+                  animate={selectedRobot === robot.id ? {
+                    scale: [1, 1.1, 1],
+                    rotate: [0, -10, 10, 0]
+                  } : {}}
+                  transition={{ duration: 0.5 }}
+                >
+                  🤖
+                </motion.div>
                 
                 <h3 className="text-2xl font-semibold text-white mb-2">{robot.name}</h3>
                 <p className="text-sm text-gray-400 mb-6">{robot.manufacturer}</p>
@@ -184,9 +207,22 @@ export default function CompatibilityPage() {
                       className="group block relative"
                     >
                       <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition duration-500" />
-                      <div className="relative bg-white/5 border border-white/10 rounded-2xl overflow-hidden group-hover:border-[#00D9FF]/30 transition-all backdrop-blur-xl">
-                        <div className="relative aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                          <div className="text-5xl group-hover:scale-110 transition-transform duration-500">🤖</div>
+                      <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-2xl overflow-hidden group-hover:border-[#00D9FF]/30 transition-all backdrop-blur-xl">
+                        <div className="relative aspect-square bg-gradient-to-br from-gray-800 via-gray-900 to-black flex items-center justify-center overflow-hidden">
+                          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(0,217,255,0.03)_25%,rgba(0,217,255,0.03)_50%,transparent_50%,transparent_75%,rgba(0,217,255,0.03)_75%,rgba(0,217,255,0.03))] bg-[length:20px_20px]" />
+                          <motion.div
+                            className="relative z-10 text-5xl"
+                            whileHover={{ 
+                              scale: 1.15, 
+                              rotate: [0, -8, 8, 0]
+                            }}
+                            transition={{ 
+                              rotate: { duration: 0.4 },
+                              scale: { duration: 0.2 }
+                            }}
+                          >
+                            🤖
+                          </motion.div>
                         </div>
                         <div className="p-4">
                           <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
