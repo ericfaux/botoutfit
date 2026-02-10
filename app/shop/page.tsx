@@ -4,12 +4,106 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { products } from '@/lib/products'
+import GlowCard from '../components/GlowCard'
+import ParticleField from '../components/ParticleField'
+
+const categoryVisuals: Record<string, { shape: string; gradient: string; color: string }> = {
+  outfits: {
+    shape: 'waves',
+    gradient: 'from-cyan-500/20 via-cyan-400/10 to-blue-500/20',
+    color: '#00D9FF',
+  },
+  accessories: {
+    shape: 'geometric',
+    gradient: 'from-purple-500/20 via-violet-400/10 to-purple-500/20',
+    color: '#A855F7',
+  },
+  protective: {
+    shape: 'hexagon',
+    gradient: 'from-amber-500/20 via-yellow-400/10 to-amber-500/20',
+    color: '#F59E0B',
+  },
+  care: {
+    shape: 'sparkle',
+    gradient: 'from-emerald-500/20 via-green-400/10 to-emerald-500/20',
+    color: '#10B981',
+  },
+}
+
+function ProductVisual({ category }: { category: string }) {
+  const visual = categoryVisuals[category] || categoryVisuals.outfits
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      {/* Background gradient */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${visual.gradient} opacity-50`} />
+      <div className="absolute inset-0 bg-grid-dots opacity-20" />
+
+      {/* Category-specific abstract shape */}
+      {category === 'outfits' && (
+        <div className="relative z-10">
+          {/* Layered fabric-like gradient waves */}
+          <div className="w-28 h-28 relative">
+            <div className="absolute inset-0 rounded-2xl border border-cyan-400/30 rotate-12 group-hover:rotate-[20deg] transition-transform duration-700" />
+            <div className="absolute inset-2 rounded-xl border border-cyan-400/20 -rotate-6 group-hover:rotate-0 transition-transform duration-700" />
+            <div className="absolute inset-4 rounded-lg border border-cyan-400/15 rotate-3 group-hover:rotate-[8deg] transition-transform duration-700" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400/40 group-hover:bg-cyan-400/70 transition-colors" />
+          </div>
+        </div>
+      )}
+      {category === 'accessories' && (
+        <div className="relative z-10">
+          <div className="w-28 h-28 relative">
+            <div className="absolute inset-0 border border-purple-400/25 rotate-45 group-hover:rotate-[55deg] transition-transform duration-700" />
+            <div className="absolute inset-3 border border-purple-400/20 rounded-lg group-hover:rotate-12 transition-transform duration-700" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-purple-400/15" />
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 h-px w-full bg-purple-400/15" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-purple-400/50 group-hover:bg-purple-400/80 transition-colors" />
+          </div>
+        </div>
+      )}
+      {category === 'protective' && (
+        <div className="relative z-10">
+          <svg viewBox="0 0 100 100" className="w-28 h-28">
+            <polygon
+              points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
+              fill="none"
+              stroke="rgba(245,158,11,0.25)"
+              strokeWidth="1"
+              className="group-hover:stroke-amber-400/50 transition-all duration-700"
+            />
+            <polygon
+              points="50,18 82,35 82,65 50,82 18,65 18,35"
+              fill="none"
+              stroke="rgba(245,158,11,0.15)"
+              strokeWidth="1"
+              className="group-hover:stroke-amber-400/30 transition-all duration-700"
+            />
+            <circle cx="50" cy="50" r="5" fill="rgba(245,158,11,0.4)" className="group-hover:fill-amber-400/70" />
+          </svg>
+        </div>
+      )}
+      {category === 'care' && (
+        <div className="relative z-10">
+          <div className="w-28 h-28 relative flex items-center justify-center">
+            <div className="absolute w-20 h-20 rounded-full border border-emerald-400/20 group-hover:border-emerald-400/40 transition-colors" />
+            <div className="absolute w-12 h-12 rounded-full border border-emerald-400/15 group-hover:scale-110 transition-transform duration-700" />
+            <div className="w-4 h-4 rounded-full bg-emerald-400/40 group-hover:bg-emerald-400/70 transition-colors" />
+            {/* Sparkle dots */}
+            <div className="absolute top-2 right-4 w-1.5 h-1.5 rounded-full bg-emerald-400/30" />
+            <div className="absolute bottom-4 left-2 w-1 h-1 rounded-full bg-emerald-400/25" />
+            <div className="absolute top-6 left-3 w-1 h-1 rounded-full bg-emerald-400/20" />
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function ShopPage() {
   const [filter, setFilter] = useState<string>('all')
-  
-  const filteredProducts = filter === 'all' 
-    ? products 
+
+  const filteredProducts = filter === 'all'
+    ? products
     : products.filter(p => p.category === filter)
 
   const categories = [
@@ -21,47 +115,37 @@ export default function ShopPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="min-h-screen bg-[#050505]">
       {/* Hero */}
       <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-black" />
-        
-        <motion.div
-          className="absolute top-20 right-20 w-96 h-96 rounded-full bg-purple-500/20 blur-[128px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-          }}
-        />
-        
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-[#050505] to-[#050505]" />
+        <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-gradient-to-bl from-purple-500/10 to-transparent blur-[150px]" />
+        <ParticleField count={25} color="purple" />
+
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-[#00D9FF]/30 backdrop-blur-xl mb-8"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-xl mb-8"
           >
-            <div className="w-2 h-2 rounded-full bg-[#00D9FF] animate-pulse" />
-            <span className="text-[#00D9FF] text-sm font-medium tracking-wide">Pre-Launch Collection</span>
+            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="text-cyan-400 text-sm font-medium tracking-wide">Pre-Launch Collection</span>
           </motion.div>
-          
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+            transition={{ delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight"
           >
-            Shop <span className="text-[#00D9FF]">Robot Fashion</span>
+            Shop Robot <span className="text-gradient-cyan">Fashion</span>
           </motion.h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-xl text-gray-300 max-w-2xl mx-auto"
+            transition={{ delay: 0.2 }}
+            className="text-xl text-zinc-400 max-w-2xl mx-auto"
           >
             Premium apparel and accessories designed for personal robots.
           </motion.p>
@@ -69,34 +153,23 @@ export default function ShopPage() {
       </section>
 
       {/* Filter */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 sticky top-20 z-40 bg-black/90 backdrop-blur-2xl border-b border-white/5">
+      <section className="py-6 px-4 sm:px-6 lg:px-8 sticky top-20 z-40 bg-[#050505]/90 backdrop-blur-2xl border-b border-white/5">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-2 justify-center">
             {categories.map((cat, i) => (
               <motion.button
                 key={cat.value}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => setFilter(cat.value)}
-                className={`relative px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                className={`relative px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                   filter === cat.value
-                    ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black shadow-lg shadow-[#00D9FF]/30'
-                    : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10 hover:border-white/20 backdrop-blur-xl'
+                    ? 'bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black shadow-lg shadow-cyan-500/20'
+                    : 'bg-white/[0.03] text-zinc-500 hover:bg-white/[0.06] hover:text-white border border-white/[0.06] hover:border-white/[0.12]'
                 }`}
               >
-                {/* Active glow */}
-                {filter === cat.value && (
-                  <motion.div
-                    layoutId="filterGlow"
-                    className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/30 to-[#00B8CC]/30 rounded-xl blur-md -z-10"
-                  />
-                )}
-                <span>
-                  {cat.label} <span className="opacity-60">({cat.count})</span>
-                </span>
+                {cat.label} <span className="opacity-50">({cat.count})</span>
               </motion.button>
             ))}
           </div>
@@ -112,81 +185,77 @@ export default function ShopPage() {
                 key={product.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
+                transition={{ duration: 0.4, delay: i * 0.03 }}
               >
-                <Link
-                  href={`/shop/${product.id}`}
-                  className="group relative block"
+                <GlowCard
+                  glowColor={
+                    product.category === 'outfits' ? 'cyan' :
+                    product.category === 'accessories' ? 'purple' :
+                    product.category === 'protective' ? 'amber' : 'cyan'
+                  }
                 >
-                  {/* Hover glow */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500" />
-                  
-                  {/* Card */}
-                  <div className="relative bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10 rounded-3xl overflow-hidden backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all duration-300">
-                    {/* Image - Abstract placeholder */}
-                    <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden group">
-                      {/* Subtle grid */}
-                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:32px_32px]" />
-                      
-                      {/* Abstract shape instead of emoji */}
-                      <div className="relative z-10 w-32 h-32">
-                        <div className="absolute inset-0 border-2 border-white/10 rounded-full group-hover:border-cyan-500/30 transition-colors" />
-                        <div className="absolute inset-4 border border-white/5 rounded-full group-hover:border-cyan-500/20 transition-colors" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors" />
-                      </div>
-                      
-                      {/* Quick View Button */}
+                  <Link href={`/shop/${product.id}`} className="group relative block">
+                    {/* Image area */}
+                    <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black overflow-hidden rounded-t-2xl">
+                      <ProductVisual category={product.category} />
+
+                      {/* Quick View */}
                       <button
                         className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-lg bg-white/10 backdrop-blur-xl text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-all border border-white/10 hover:bg-white/20 z-20"
-                        onClick={(e) => {
-                          e.preventDefault()
-                        }}
+                        onClick={(e) => e.preventDefault()}
                       >
                         Quick View
                       </button>
-                      
+
                       {/* Badge */}
-                      <div className="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-xl border border-white/10">
-                        <span className="text-cyan-400 text-xs font-medium">Q4 2026</span>
+                      <div className="absolute top-3 right-3">
+                        <div
+                          className="px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-xl border text-xs font-medium"
+                          style={{
+                            borderColor: `${categoryVisuals[product.category]?.color || '#00D9FF'}30`,
+                            color: categoryVisuals[product.category]?.color || '#00D9FF',
+                          }}
+                        >
+                          {product.inStock ? 'IN STOCK' : 'PRE-ORDER'}
+                        </div>
                       </div>
                     </div>
 
                     {/* Info */}
                     <div className="p-6">
-                      <div className="mb-2">
-                        <span className="text-xs text-[#00D9FF] font-semibold uppercase tracking-wider">
-                          {product.category}
-                        </span>
-                      </div>
-                      
-                      <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#00D9FF] transition-colors line-clamp-2">
+                      <span
+                        className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: categoryVisuals[product.category]?.color || '#00D9FF' }}
+                      >
+                        {product.category}
+                      </span>
+
+                      <h3 className="text-lg font-display font-semibold text-white mt-2 mb-2 group-hover:text-cyan-400 transition-colors line-clamp-2">
                         {product.name}
                       </h3>
-                      
-                      <p className="text-gray-400 text-sm mb-4 line-clamp-2 leading-relaxed">
+
+                      <p className="text-zinc-500 text-sm mb-4 line-clamp-2 leading-relaxed">
                         {product.description}
                       </p>
 
                       <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                        <div className="text-2xl font-bold text-white">
-                          ${product.price}
-                        </div>
-                        <div className="text-[#00D9FF] group-hover:translate-x-2 transition-transform duration-300">
+                        <div className="text-2xl font-display font-bold text-white">${product.price}</div>
+                        <div className="text-zinc-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all">
                           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-gray-500 text-lg">No products in this category yet.</p>
+              <p className="text-zinc-500 text-lg">No products in this category yet.</p>
             </div>
           )}
         </div>
@@ -194,32 +263,32 @@ export default function ShopPage() {
 
       {/* CTA */}
       <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#00D9FF]/5 to-black" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00D9FF]/10 blur-[150px]" />
-        
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-cyan-950/5 to-[#050505]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[150px]" />
+
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-              First 1,000 Get <span className="text-[#00D9FF]">20% Off</span>
+            <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-6">
+              First 1,000 Get <span className="text-gradient-cyan">20% Off</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-12">
+            <p className="text-xl text-zinc-400 mb-12">
               Join the waitlist and secure your early bird discount.
             </p>
 
             <form className="max-w-md mx-auto relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition duration-500" />
-              <div className="relative flex gap-3 p-2 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10">
-                <input 
+              <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition duration-500" />
+              <div className="relative flex gap-3 p-2 bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08]">
+                <input
                   type="email"
                   placeholder="your@email.com"
                   required
-                  className="flex-1 px-6 py-4 rounded-xl bg-transparent text-white placeholder-gray-400 focus:outline-none"
+                  className="flex-1 px-6 py-4 rounded-xl bg-transparent text-white placeholder-zinc-600 focus:outline-none"
                 />
-                <button 
+                <button
                   type="submit"
                   className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:scale-105 transition-transform"
                 >

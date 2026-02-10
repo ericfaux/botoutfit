@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
@@ -8,8 +7,6 @@ import BackToTop from "./components/BackToTop";
 import CursorGlow from "./components/CursorGlow";
 import StructuredData from "./components/StructuredData";
 import SkipToContent from "./components/SkipToContent";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://botoutfit.com'),
@@ -66,13 +63,13 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className="antialiased font-body">
         <SkipToContent />
         <CursorGlow />
         <ScrollProgress />
         <Navigation />
         <BackToTop />
-        
+
         {/* Main Content */}
         <main id="main-content" className="pt-20">
           {children}
