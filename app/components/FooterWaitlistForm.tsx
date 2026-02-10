@@ -23,7 +23,7 @@ export default function FooterWaitlistForm() {
 
       if (res.ok) {
         setStatus('success')
-        setMessage('✓ Successfully subscribed!')
+        setMessage('Successfully subscribed!')
         setEmail('')
         setTimeout(() => {
           setStatus('idle')
@@ -37,7 +37,7 @@ export default function FooterWaitlistForm() {
           setMessage('')
         }, 3000)
       }
-    } catch (error) {
+    } catch {
       setStatus('error')
       setMessage('Something went wrong. Please try again.')
       setTimeout(() => {
@@ -53,36 +53,32 @@ export default function FooterWaitlistForm() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: 0.2 }}
-      className="max-w-md mx-auto"
     >
-      <form onSubmit={handleSubmit} className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-xl blur-lg opacity-20 group-hover:opacity-40 transition duration-500" />
-        <div className="relative flex gap-2 p-1.5 bg-white/5 backdrop-blur-xl rounded-xl border border-white/10">
-          <input 
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
-            required
-            disabled={status === 'loading'}
-            className="flex-1 px-4 py-3 rounded-lg bg-transparent text-white placeholder-gray-400 focus:outline-none disabled:opacity-50"
-          />
-          <button 
-            type="submit"
-            disabled={status === 'loading'}
-            className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:scale-105 transition-transform whitespace-nowrap disabled:opacity-50"
-          >
-            {status === 'loading' ? 'Joining...' : 'Subscribe'}
-          </button>
-        </div>
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          required
+          disabled={status === 'loading'}
+          className="flex-1 px-4 py-3 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white placeholder-zinc-600 text-sm focus:outline-none focus:border-[#CCFF00]/30 transition-all disabled:opacity-50"
+        />
+        <button
+          type="submit"
+          disabled={status === 'loading'}
+          className="px-5 py-3 rounded-lg bg-[#CCFF00] text-black font-display font-bold text-xs uppercase tracking-[0.15em] hover:bg-[#d4ff33] transition-all whitespace-nowrap disabled:opacity-50"
+        >
+          {status === 'loading' ? '...' : 'Subscribe'}
+        </button>
       </form>
-      
+
       {message && (
         <motion.p
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`mt-3 text-sm text-center ${
-            status === 'success' ? 'text-green-400' : 'text-red-400'
+          className={`mt-3 text-xs ${
+            status === 'success' ? 'text-[#CCFF00]' : 'text-red-400'
           }`}
         >
           {message}

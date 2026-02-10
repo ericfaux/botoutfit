@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 export default function NotFound() {
   return (
-    <main className="min-h-screen bg-black flex items-center justify-center overflow-hidden">
+    <main className="min-h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
       {/* Gradient orbs */}
       <motion.div
         className="absolute top-20 right-20 w-96 h-96 rounded-full bg-purple-500/20 blur-[128px]"
@@ -19,7 +19,7 @@ export default function NotFound() {
         }}
       />
       <motion.div
-        className="absolute bottom-20 left-20 w-80 h-80 rounded-full bg-[#00D9FF]/20 blur-[120px]"
+        className="absolute bottom-20 left-20 w-80 h-80 rounded-full bg-[#CCFF00]/20 blur-[120px]"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.3, 0.5, 0.3],
@@ -36,9 +36,9 @@ export default function NotFound() {
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          transition={{ 
-            type: "spring", 
-            stiffness: 200, 
+          transition={{
+            type: "spring",
+            stiffness: 200,
             damping: 15,
             delay: 0.2
           }}
@@ -51,7 +51,7 @@ export default function NotFound() {
               style={{ margin: `${i * 20}%` }}
             />
           ))}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl font-bold text-cyan-400">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl font-display font-bold text-[#CCFF00]">
             404
           </div>
         </motion.div>
@@ -61,10 +61,8 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-[#00D9FF]/30 backdrop-blur-xl mb-8"
         >
-          <div className="w-2 h-2 rounded-full bg-[#00D9FF] animate-pulse" />
-          <span className="text-[#00D9FF] text-sm font-medium tracking-wide">ERROR 404</span>
+          <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">ERROR 404</span>
         </motion.div>
 
         {/* Message */}
@@ -72,16 +70,16 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
+          className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight mt-4"
         >
-          Page Not <span className="text-[#00D9FF]">Found</span>
+          Page Not <span className="text-gradient-lime">Found</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="text-xl text-gray-300 mb-12 max-w-md mx-auto"
+          className="text-xl text-zinc-400 font-body mb-12 max-w-md mx-auto"
         >
           This robot outfit doesn't exist yet. But we've got plenty of others that do.
         </motion.p>
@@ -95,17 +93,14 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="group relative px-8 py-4 rounded-xl overflow-hidden"
+            className="px-8 py-4 rounded-xl bg-[#CCFF00] text-black font-display font-bold text-xs uppercase tracking-[0.15em] hover:shadow-2xl hover:shadow-[#CCFF00]/30 transition-all duration-300 hover:scale-105"
           >
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF] to-purple-500 rounded-xl blur-lg opacity-30 group-hover:opacity-50 transition duration-500" />
-            <div className="relative px-8 py-4 bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold rounded-xl">
-              Back to Home
-            </div>
+            Back to Home
           </Link>
 
           <Link
             href="/shop"
-            className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 hover:border-[#00D9FF]/30 transition-all"
+            className="px-8 py-4 rounded-xl border border-white/[0.06] bg-white/[0.02] text-white font-display font-bold text-xs uppercase tracking-[0.15em] hover:border-[#CCFF00]/40 hover:text-[#CCFF00] transition-all"
           >
             Browse Collection
           </Link>

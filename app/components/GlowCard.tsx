@@ -6,16 +6,17 @@ import { motion } from 'framer-motion'
 interface GlowCardProps {
   children: React.ReactNode
   className?: string
-  glowColor?: 'cyan' | 'purple' | 'amber'
+  glowColor?: 'cyan' | 'purple' | 'amber' | 'lime'
   delay?: number
 }
 
-export default function GlowCard({ children, className = '', glowColor = 'cyan', delay = 0 }: GlowCardProps) {
+export default function GlowCard({ children, className = '', glowColor = 'lime', delay = 0 }: GlowCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
 
   const glowColors = {
+    lime: { border: 'rgba(204,255,0,0.3)', spotlight: 'rgba(204,255,0,0.08)', shadow: 'rgba(204,255,0,0.15)' },
     cyan: { border: 'rgba(0,217,255,0.3)', spotlight: 'rgba(0,217,255,0.08)', shadow: 'rgba(0,217,255,0.15)' },
     purple: { border: 'rgba(168,85,247,0.3)', spotlight: 'rgba(168,85,247,0.08)', shadow: 'rgba(168,85,247,0.15)' },
     amber: { border: 'rgba(245,158,11,0.3)', spotlight: 'rgba(245,158,11,0.08)', shadow: 'rgba(245,158,11,0.15)' },
@@ -42,10 +43,10 @@ export default function GlowCard({ children, className = '', glowColor = 'cyan',
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative group rounded-2xl overflow-hidden ${className}`}
+      className={`relative group rounded-xl overflow-hidden ${className}`}
       style={{
-        background: 'rgba(255,255,255,0.03)',
-        border: `1px solid ${isHovered ? colors.border : 'rgba(255,255,255,0.08)'}`,
+        background: 'rgba(255,255,255,0.02)',
+        border: `1px solid ${isHovered ? colors.border : 'rgba(255,255,255,0.06)'}`,
         boxShadow: isHovered ? `0 0 30px ${colors.shadow}` : 'none',
         transition: 'border-color 0.3s, box-shadow 0.3s',
       }}
@@ -65,7 +66,7 @@ export default function GlowCard({ children, className = '', glowColor = 'cyan',
         />
       )}
 
-      {/* Animated border gradient (top edge) */}
+      {/* Top edge glow */}
       <div
         className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity"
         style={{
@@ -73,7 +74,6 @@ export default function GlowCard({ children, className = '', glowColor = 'cyan',
         }}
       />
 
-      {/* Content */}
       <div className="relative z-10">
         {children}
       </div>

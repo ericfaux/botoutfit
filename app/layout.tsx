@@ -63,15 +63,14 @@ export default function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className="antialiased font-body">
+      <body className="antialiased font-body bg-[#050505] text-white">
         <SkipToContent />
         <CursorGlow />
         <ScrollProgress />
         <Navigation />
         <BackToTop />
 
-        {/* Main Content */}
-        <main id="main-content" className="pt-20">
+        <main id="main-content" className="pt-16">
           {children}
         </main>
 

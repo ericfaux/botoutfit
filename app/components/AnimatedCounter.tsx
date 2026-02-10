@@ -19,7 +19,6 @@ export default function AnimatedCounter({ value, label, suffix, sub, className =
   useEffect(() => {
     if (!isInView) return
 
-    // Parse the numeric part from the value string
     const numericMatch = value.match(/[\d.]+/)
     if (!numericMatch) {
       setDisplayValue(value)
@@ -36,7 +35,6 @@ export default function AnimatedCounter({ value, label, suffix, sub, className =
     const animate = () => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / duration, 1)
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3)
       const current = target * eased
 
@@ -60,13 +58,13 @@ export default function AnimatedCounter({ value, label, suffix, sub, className =
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className={className}
+      className={`relative ${className}`}
     >
-      <div className="text-4xl md:text-5xl font-display font-bold text-white mb-2">
+      <div className="text-5xl md:text-6xl font-display font-bold text-gradient-lime mb-2">
         {displayValue}{suffix}
       </div>
-      <div className="text-sm text-zinc-400 mb-1">{label}</div>
-      {sub && <div className="text-xs text-zinc-600">{sub}</div>}
+      <div className="text-xs text-zinc-400 uppercase tracking-[0.2em] font-display mb-1">{label}</div>
+      {sub && <div className="text-[10px] text-zinc-600">{sub}</div>}
     </motion.div>
   )
 }

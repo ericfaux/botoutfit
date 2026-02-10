@@ -4,10 +4,10 @@ import { motion } from 'framer-motion'
 
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center overflow-hidden">
+    <div className="min-h-screen bg-[#050505] flex items-center justify-center overflow-hidden">
       {/* Gradient orb */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#00D9FF]/20 blur-[128px]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-[#CCFF00]/20 blur-[128px]"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.3, 0.6, 0.3],
@@ -24,7 +24,7 @@ export default function Loading() {
           {[...Array(3)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute inset-0 rounded-full border-2 border-cyan-400"
+              className="absolute inset-0 rounded-full border-2 border-[#CCFF00]"
               style={{ margin: `${i * 20}%` }}
               animate={{
                 opacity: [0.3, 0.8, 0.3],
@@ -37,7 +37,7 @@ export default function Loading() {
               }}
             />
           ))}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-cyan-400" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#CCFF00]" />
         </div>
 
         {/* Loading dots */}
@@ -45,7 +45,7 @@ export default function Loading() {
           {[0, 1, 2].map((i) => (
             <motion.div
               key={i}
-              className="w-2 h-2 rounded-full bg-cyan-400"
+              className="w-2 h-2 rounded-full bg-[#CCFF00]"
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [0.4, 1, 0.4],

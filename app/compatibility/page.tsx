@@ -17,7 +17,7 @@ const robotModels = [
     arms: '65cm',
     status: 'Q4 2026',
     statusColor: 'yellow',
-    color: '#00D9FF',
+    color: '#CCFF00',
   },
   {
     id: 'figure-01',
@@ -79,34 +79,33 @@ export default function CompatibilityPage() {
   return (
     <main className="min-h-screen bg-[#050505]">
       {/* Hero */}
-      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-[#050505] to-[#050505]" />
-        <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-gradient-to-br from-cyan-500/10 to-transparent blur-[150px]" />
+        <div className="absolute top-0 left-0 w-[50%] h-[50%] bg-gradient-to-br from-[#CCFF00]/10 to-transparent blur-[150px]" />
         <ParticleField count={20} color="cyan" />
 
-        <div className="max-w-7xl mx-auto text-center relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/5 backdrop-blur-xl mb-8"
           >
-            <span className="text-cyan-400 text-sm font-medium tracking-wide">Model-Specific Sizing</span>
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Model-Specific Sizing</span>
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight mt-4"
           >
-            Perfect <span className="text-gradient-cyan">Fit</span> Guaranteed
+            Perfect <span className="text-gradient-lime">Fit</span> Guaranteed
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-zinc-400 max-w-2xl mx-auto"
+            className="text-xl text-zinc-400 font-body max-w-2xl mx-auto"
           >
             Model-specific sizing for every robot. Select yours below.
           </motion.p>
@@ -114,8 +113,8 @@ export default function CompatibilityPage() {
       </section>
 
       {/* Robot Selection */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {robotModels.map((robot, i) => (
               <motion.button
@@ -124,10 +123,10 @@ export default function CompatibilityPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 onClick={() => setSelectedRobot(robot.id)}
-                className={`relative p-8 rounded-2xl text-left transition-all duration-300 ${
+                className={`relative p-8 rounded-xl text-left transition-all duration-300 ${
                   selectedRobot === robot.id
                     ? 'border-2 shadow-xl'
-                    : 'bg-white/[0.03] border border-white/[0.08] hover:border-white/[0.15] hover:bg-white/[0.05]'
+                    : 'bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.04]'
                 }`}
                 style={selectedRobot === robot.id ? {
                   borderColor: `${robot.color}60`,
@@ -158,7 +157,7 @@ export default function CompatibilityPage() {
                 </div>
 
                 <h3 className="text-2xl font-display font-semibold text-white mb-1">{robot.name}</h3>
-                <p className="text-sm text-zinc-500 mb-6">{robot.manufacturer}</p>
+                <p className="text-sm text-zinc-500 font-body mb-6">{robot.manufacturer}</p>
 
                 <div className="space-y-3 text-sm">
                   {[
@@ -167,14 +166,14 @@ export default function CompatibilityPage() {
                     { label: 'Arms', value: robot.arms },
                   ].map((spec) => (
                     <div key={spec.label} className="flex justify-between items-center">
-                      <span className="text-zinc-600">{spec.label}</span>
-                      <span className="text-white font-medium">{spec.value}</span>
+                      <span className="text-zinc-600 font-body">{spec.label}</span>
+                      <span className="text-white font-display font-medium">{spec.value}</span>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-white/[0.06]">
-                  <span className={`inline-block px-3 py-1.5 rounded-full text-xs font-medium ${
+                  <span className={`inline-block px-3 py-1 rounded-md text-[10px] font-display font-bold uppercase tracking-[0.15em] ${
                     robot.statusColor === 'green'
                       ? 'bg-green-500/10 text-green-400 border border-green-500/20'
                       : 'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20'
@@ -196,10 +195,10 @@ export default function CompatibilityPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="py-16 px-4 sm:px-6 lg:px-8 relative"
+            className="py-16 relative"
           >
             <div className="absolute inset-0 bg-white/[0.01]" />
-            <div className="max-w-7xl mx-auto relative z-10">
+            <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
               <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-12 text-center">
                 Compatible with{' '}
                 <span style={{ color: robotModels.find(r => r.id === selectedRobot)?.color }}>
@@ -217,19 +216,19 @@ export default function CompatibilityPage() {
                   >
                     <GlowCard>
                       <Link href={`/shop/${product.id}`} className="block group">
-                        <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden rounded-t-2xl">
+                        <div className="relative aspect-square bg-gradient-to-br from-zinc-900 via-zinc-950 to-black flex items-center justify-center overflow-hidden rounded-t-xl">
                           <div className="absolute inset-0 bg-grid-dots opacity-20" />
                           <div className="relative w-16 h-16">
-                            <div className="absolute inset-0 border border-white/10 rounded-full group-hover:border-cyan-500/30 transition-colors" />
-                            <div className="absolute inset-3 border border-white/5 rounded-full group-hover:border-cyan-500/20 transition-colors" />
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-cyan-400/50 group-hover:bg-cyan-400 transition-colors" />
+                            <div className="absolute inset-0 border border-white/10 rounded-full group-hover:border-[#CCFF00]/30 transition-colors" />
+                            <div className="absolute inset-3 border border-white/5 rounded-full group-hover:border-[#CCFF00]/20 transition-colors" />
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#CCFF00]/50 group-hover:bg-[#CCFF00] transition-colors" />
                           </div>
                         </div>
                         <div className="p-5">
-                          <span className="text-xs text-cyan-400 font-semibold uppercase tracking-wider">
+                          <span className="text-[10px] font-display font-bold uppercase tracking-[0.15em] text-[#CCFF00]">
                             {product.category}
                           </span>
-                          <h3 className="text-white font-display font-semibold mt-2 mb-2 group-hover:text-cyan-400 transition-colors line-clamp-2">
+                          <h3 className="text-white font-display font-semibold mt-2 mb-2 group-hover:text-[#CCFF00] transition-colors line-clamp-2">
                             {product.name}
                           </h3>
                           <p className="text-lg font-display font-bold text-white">${product.price}</p>
@@ -245,18 +244,16 @@ export default function CompatibilityPage() {
       </AnimatePresence>
 
       {/* Size Chart */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-medium tracking-wider uppercase mb-6">
-              Sizing Reference
-            </span>
-            <h2 className="text-4xl font-display font-bold text-white">
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Sizing Reference</span>
+            <h2 className="text-4xl font-display font-bold text-white mt-4">
               Universal Size <span className="text-gradient-purple">Chart</span>
             </h2>
           </motion.div>
@@ -267,7 +264,7 @@ export default function CompatibilityPage() {
             viewport={{ once: true }}
             className="overflow-x-auto"
           >
-            <div className="min-w-[800px] bg-white/[0.02] border border-white/[0.06] rounded-2xl overflow-hidden">
+            <div className="min-w-[800px] border border-white/[0.06] bg-white/[0.02] rounded-xl overflow-hidden">
               <table className="w-full">
                 <thead className="bg-white/[0.03]">
                   <tr>
@@ -293,10 +290,10 @@ export default function CompatibilityPage() {
                       className="hover:bg-white/[0.02] transition-colors"
                     >
                       <td className="px-6 py-4 text-white font-display font-medium">{row.size}</td>
-                      <td className="px-6 py-4 text-zinc-400">{row.height}</td>
-                      <td className="px-6 py-4 text-zinc-400">{row.torso}</td>
-                      <td className="px-6 py-4 text-zinc-400">{row.arms}</td>
-                      <td className="px-6 py-4 text-zinc-400">{row.models}</td>
+                      <td className="px-6 py-4 text-zinc-400 font-body">{row.height}</td>
+                      <td className="px-6 py-4 text-zinc-400 font-body">{row.torso}</td>
+                      <td className="px-6 py-4 text-zinc-400 font-body">{row.arms}</td>
+                      <td className="px-6 py-4 text-zinc-400 font-body">{row.models}</td>
                     </motion.tr>
                   ))}
                 </tbody>
@@ -307,25 +304,26 @@ export default function CompatibilityPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-purple-950/5 to-[#050505]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[150px]" />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-display font-bold text-white mb-4">
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Custom Support</span>
+            <h2 className="text-4xl font-display font-bold text-white mb-4 mt-4">
               Don&apos;t See Your Robot?
             </h2>
-            <p className="text-xl text-zinc-400 mb-8">
+            <p className="text-xl text-zinc-400 font-body mb-8">
               Let us know which model you have and we&apos;ll prioritize it.
             </p>
             <a
               href="mailto:hello@botoutfit.com?subject=Robot Model Request"
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-3 px-10 py-5 rounded-xl bg-[#CCFF00] text-black font-display font-bold text-xs uppercase tracking-[0.15em] hover:shadow-2xl hover:shadow-[#CCFF00]/30 transition-all duration-300 hover:scale-105"
             >
               Request Support
             </a>
