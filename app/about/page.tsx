@@ -19,12 +19,12 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#050505]">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section ref={heroRef} className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-zinc-950 via-[#050505] to-[#050505]" />
 
         {/* Floating orbs */}
         <motion.div
-          className="absolute top-20 right-20 w-96 h-96 rounded-full bg-cyan-500/10 blur-[128px]"
+          className="absolute top-20 right-20 w-96 h-96 rounded-full bg-[#CCFF00]/10 blur-[128px]"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -43,32 +43,31 @@ export default function AboutPage() {
 
         <motion.div
           style={{ y, opacity }}
-          className="max-w-4xl mx-auto text-center relative z-10"
+          className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center relative z-10"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.03] border border-cyan-500/20 backdrop-blur-xl mb-8"
           >
-            <span className="text-cyan-400 text-sm font-medium tracking-wide">About BotOutfit</span>
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">About BotOutfit</span>
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
-            className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-white mb-6 tracking-tight mt-4"
           >
             The First Fashion Brand for{' '}
-            <span className="text-gradient-cyan">Personal Robots</span>
+            <span className="text-gradient-lime">Personal Robots</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-xl text-zinc-400 leading-relaxed"
+            className="text-xl text-zinc-400 font-body leading-relaxed"
           >
             Building the future of personalization—one outfit at a time.
           </motion.p>
@@ -76,17 +75,18 @@ export default function AboutPage() {
       </section>
 
       {/* Story Section with Timeline */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-20 relative">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-display font-bold text-white mb-12">Our Story</h2>
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Our Journey</span>
+            <h2 className="text-4xl font-display font-bold text-white mb-12 mt-4">Our <span className="text-gradient-lime">Story</span></h2>
 
-            <div className="relative pl-8 border-l border-cyan-500/20">
+            <div className="relative pl-8 border-l border-[#CCFF00]/20">
               {/* Timeline dots */}
               {[
                 {
@@ -111,12 +111,12 @@ export default function AboutPage() {
                   className="relative mb-12 last:mb-0"
                 >
                   {/* Dot */}
-                  <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#050505] border-2 border-cyan-500/40">
-                    <div className="absolute inset-1 rounded-full bg-cyan-400/60" />
+                  <div className="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-[#050505] border-2 border-[#CCFF00]/40">
+                    <div className="absolute inset-1 rounded-full bg-[#CCFF00]/60" />
                   </div>
 
-                  <div className="text-cyan-400 text-sm font-medium tracking-wider uppercase mb-3">{item.year}</div>
-                  <p className="text-zinc-400 leading-relaxed text-lg">{item.text}</p>
+                  <div className="text-[#CCFF00] text-sm font-display font-medium tracking-wider uppercase mb-3">{item.year}</div>
+                  <p className="text-zinc-400 font-body leading-relaxed text-lg">{item.text}</p>
                 </motion.div>
               ))}
             </div>
@@ -126,11 +126,11 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-16 relative p-8 rounded-2xl bg-gradient-to-r from-cyan-500/5 to-purple-500/5 border-l-4 border-cyan-500 backdrop-blur-xl"
+              className="mt-16 relative p-8 rounded-xl bg-gradient-to-r from-[#CCFF00]/5 to-purple-500/5 border-l-4 border-[#CCFF00] backdrop-blur-xl"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-[60px]" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#CCFF00]/5 rounded-full blur-[60px]" />
               <p className="text-white font-display font-semibold mb-3 text-xl relative z-10">Our Mission</p>
-              <p className="text-zinc-300 italic text-lg relative z-10 leading-relaxed">
+              <p className="text-zinc-300 font-body italic text-lg relative z-10 leading-relaxed">
                 "To make robot personalization accessible, stylish, and fun for everyone—from tech enthusiasts to enterprise customers."
               </p>
             </motion.div>
@@ -139,20 +139,18 @@ export default function AboutPage() {
       </section>
 
       {/* Why Now */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-20 relative">
         <div className="absolute inset-0 bg-white/[0.01]" />
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-medium tracking-wider uppercase mb-6">
-              Market Timing
-            </span>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">
-              Why <span className="text-gradient-warm">Now?</span>
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Market Timing</span>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mt-4">
+              Why <span className="text-gradient-lime">Now?</span>
             </h2>
           </motion.div>
 
@@ -195,15 +193,15 @@ export default function AboutPage() {
                 ),
               },
             ].map((item, i) => (
-              <GlowCard key={i} delay={i * 0.1} glowColor={i % 2 === 0 ? 'cyan' : 'purple'}>
+              <GlowCard key={i} delay={i * 0.1} glowColor={i % 2 === 0 ? 'lime' : 'purple'}>
                 <div className="p-8">
-                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-cyan-400 mb-5">
+                  <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#CCFF00] mb-5">
                     {item.icon}
                   </div>
                   <h3 className="text-xl font-display font-semibold text-white mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-zinc-400 leading-relaxed">{item.desc}</p>
+                  <p className="text-zinc-400 font-body leading-relaxed">{item.desc}</p>
                 </div>
               </GlowCard>
             ))}
@@ -212,18 +210,16 @@ export default function AboutPage() {
       </section>
 
       {/* What Makes Us Different */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-20">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-purple-500/20 bg-purple-500/5 text-purple-400 text-xs font-medium tracking-wider uppercase mb-6">
-              Our Edge
-            </span>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Our Edge</span>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mt-4">
               What Makes Us <span className="text-gradient-purple">Different</span>
             </h2>
           </motion.div>
@@ -257,16 +253,16 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="flex gap-5 p-6 rounded-2xl hover:bg-white/[0.02] transition-colors group"
+                className="flex gap-5 p-6 rounded-xl hover:bg-white/[0.02] transition-colors group"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-lg group-hover:border-cyan-500/20 transition-colors">
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-lg group-hover:border-[#CCFF00]/20 transition-colors">
                   {item.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-display font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-xl font-display font-semibold text-white mb-2 group-hover:text-[#CCFF00] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-zinc-400 leading-relaxed">{item.desc}</p>
+                  <p className="text-zinc-400 font-body leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -275,28 +271,29 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-cyan-950/5 to-[#050505]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[150px]" />
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#CCFF00]/5 to-[#050505]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#CCFF00]/5 blur-[150px]" />
         <ParticleField count={20} color="cyan" />
 
-        <div className="max-w-4xl mx-auto text-center relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-6">
-              Be Part of the <span className="text-gradient-cyan">Journey</span>
+            <span className="text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60">Get Started</span>
+            <h2 className="text-4xl sm:text-5xl font-display font-bold text-white mb-6 mt-4">
+              Be Part of the <span className="text-gradient-lime">Journey</span>
             </h2>
-            <p className="text-xl text-zinc-400 mb-12">
+            <p className="text-xl text-zinc-400 font-body mb-12">
               Join our waitlist for early access, exclusive discounts, and behind-the-scenes updates.
             </p>
 
             <Link
               href="/#waitlist"
-              className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-[#00D9FF] to-[#00B8CC] text-black font-semibold hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-105"
+              className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-xl bg-[#CCFF00] text-black font-display font-bold text-xs uppercase tracking-[0.15em] hover:shadow-2xl hover:shadow-[#CCFF00]/30 transition-all duration-300 hover:scale-105"
             >
               <span>Join the Waitlist</span>
               <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">

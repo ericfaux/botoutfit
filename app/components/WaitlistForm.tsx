@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, FormEvent } from 'react'
+import { motion } from 'framer-motion'
 
 export default function WaitlistForm() {
   const [email, setEmail] = useState('')
@@ -24,46 +25,58 @@ export default function WaitlistForm() {
         setStatus('success')
         setMessage(data.message)
         setEmail('')
-        setTimeout(() => setStatus('idle'), 5000)
       } else {
         setStatus('error')
         setMessage(data.error)
         setTimeout(() => setStatus('idle'), 3000)
       }
-    } catch (error) {
+    } catch {
       setStatus('error')
       setMessage('Something went wrong. Please try again.')
       setTimeout(() => setStatus('idle'), 3000)
     }
   }
 
+  if (status === 'success') {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="text-center"
+      >
+        <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#CCFF00]/10 border border-[#CCFF00]/20">
+          <svg className="w-5 h-5 text-[#CCFF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+          <span className="text-[#CCFF00] font-display font-medium text-sm">{message || "You're on the list. Welcome to the future."}</span>
+        </div>
+      </motion.div>
+    )
+  }
+
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto" id="waitlist">
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="your@email.com"
+          placeholder="Enter your email"
           required
           disabled={status === 'loading'}
-          className="flex-1 px-6 py-4 rounded-lg bg-white/5 border border-white/10 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-500/50 disabled:opacity-50"
+          className="flex-1 px-5 py-3.5 rounded-lg bg-white/[0.04] border border-white/[0.08] text-white placeholder-zinc-600 text-sm font-body focus:outline-none focus:border-[#CCFF00]/40 focus:bg-white/[0.06] transition-all disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="px-8 py-4 rounded-lg bg-white text-black font-bold hover:bg-cyan-400 transition-all whitespace-nowrap disabled:opacity-50"
+          className="px-6 py-3.5 rounded-lg bg-[#CCFF00] text-black font-display font-bold text-xs uppercase tracking-[0.15em] hover:bg-[#d4ff33] transition-all duration-300 disabled:opacity-50 whitespace-nowrap"
         >
-          {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+          {status === 'loading' ? '...' : 'Join'}
         </button>
       </div>
-      
-      {status === 'success' && (
-        <p className="mt-4 text-green-400 text-sm">✓ {message}</p>
-      )}
-      
+
       {status === 'error' && (
-        <p className="mt-4 text-red-400 text-sm">{message}</p>
+        <p className="mt-3 text-red-400 text-xs">{message}</p>
       )}
     </form>
   )

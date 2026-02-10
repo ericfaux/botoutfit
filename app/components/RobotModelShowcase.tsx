@@ -12,7 +12,7 @@ const robotModels = [
     weight: '56 kg',
     status: 'Q4 2026',
     description: 'Tesla\'s flagship humanoid robot. Full wardrobe compatibility with our Executive and Casual lines.',
-    color: '#00D9FF',
+    color: '#CCFF00',
     outfitCount: 12,
   },
   {
@@ -23,7 +23,7 @@ const robotModels = [
     weight: '60 kg',
     status: 'Available Now',
     description: 'Enterprise-focused humanoid. Compatible with our Workwear and Protection collections.',
-    color: '#A855F7',
+    color: '#00D9FF',
     outfitCount: 8,
   },
   {
@@ -34,7 +34,7 @@ const robotModels = [
     weight: '35 kg',
     status: 'Available Now',
     description: 'Compact consumer robot. Custom-fit accessories and protective gear designed for its unique frame.',
-    color: '#F59E0B',
+    color: '#A855F7',
     outfitCount: 6,
   },
 ]
@@ -98,26 +98,22 @@ export default function RobotModelShowcase() {
   const [activeModel, setActiveModel] = useState(0)
 
   return (
-    <section className="py-24 md:py-32 px-6 relative overflow-hidden">
-      {/* Background accent */}
+    <section className="py-24 md:py-32 px-6 lg:px-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1400px] mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <span className="inline-block px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-xs font-medium tracking-wider uppercase mb-6">
+          <span className="inline-block text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60 mb-4">
             Compatible Models
           </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-            Designed for Every <span className="text-gradient-cyan">Robot</span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-white">
+            Designed for Every <span className="text-gradient-lime">Robot</span>
           </h2>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-            Precision-engineered apparel for the leading humanoid platforms
-          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -128,7 +124,6 @@ export default function RobotModelShowcase() {
             viewport={{ once: true }}
             className="relative h-80 md:h-96 flex items-end justify-center gap-6"
           >
-            {/* Background glow for active model */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeModel}
@@ -140,7 +135,6 @@ export default function RobotModelShowcase() {
               />
             </AnimatePresence>
 
-            {/* Ground reflection line */}
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             {robotModels.map((model, i) => (
@@ -152,7 +146,7 @@ export default function RobotModelShowcase() {
                 }`}
               >
                 <RobotSilhouette model={model} isActive={i === activeModel} />
-                <div className={`text-center mt-2 text-xs font-medium transition-colors ${
+                <div className={`text-center mt-2 text-xs font-display uppercase tracking-wider transition-colors ${
                   i === activeModel ? 'text-white' : 'text-zinc-600'
                 }`}>
                   {model.name.split(' ')[0]}
@@ -180,7 +174,7 @@ export default function RobotModelShowcase() {
                     {robotModels[activeModel].name}
                   </h3>
                   <span
-                    className="px-3 py-1 rounded-full text-xs font-medium"
+                    className="px-3 py-1 rounded-md text-[10px] font-display uppercase tracking-wider"
                     style={{
                       backgroundColor: `${robotModels[activeModel].color}15`,
                       color: robotModels[activeModel].color,
@@ -196,7 +190,7 @@ export default function RobotModelShowcase() {
                 </p>
 
                 {/* Specs grid */}
-                <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="grid grid-cols-2 gap-3 mb-8">
                   {[
                     { label: 'Height', value: robotModels[activeModel].height },
                     { label: 'Weight', value: robotModels[activeModel].weight },
@@ -205,10 +199,10 @@ export default function RobotModelShowcase() {
                   ].map((spec) => (
                     <div
                       key={spec.label}
-                      className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]"
+                      className="p-4 rounded-lg bg-white/[0.02] border border-white/[0.06]"
                     >
-                      <div className="text-xs text-zinc-500 uppercase tracking-wider mb-1">{spec.label}</div>
-                      <div className="text-lg font-semibold text-white">{spec.value}</div>
+                      <div className="text-[10px] text-zinc-600 uppercase tracking-[0.2em] font-display mb-1">{spec.label}</div>
+                      <div className="text-lg font-display font-semibold text-white">{spec.value}</div>
                     </div>
                   ))}
                 </div>
@@ -219,14 +213,13 @@ export default function RobotModelShowcase() {
                     <button
                       key={model.id}
                       onClick={() => setActiveModel(i)}
-                      className={`flex-1 py-3 rounded-xl text-sm font-medium transition-all ${
+                      className={`flex-1 py-3 rounded-lg text-[11px] font-display font-medium uppercase tracking-[0.1em] transition-all ${
                         i === activeModel
                           ? 'text-black'
                           : 'bg-white/[0.03] text-zinc-500 border border-white/[0.06] hover:border-white/20 hover:text-white'
                       }`}
                       style={i === activeModel ? {
                         backgroundColor: model.color,
-                        boxShadow: `0 0 20px ${model.color}40`,
                       } : {}}
                     >
                       {model.name.split(' ').pop()}

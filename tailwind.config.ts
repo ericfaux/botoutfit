@@ -17,10 +17,15 @@ export default {
           450: '#00D9FF',
         },
         electric: '#00D9FF',
+        lime: {
+          400: '#CCFF00',
+          500: '#B8E600',
+          600: '#A3CC00',
+        },
       },
       fontFamily: {
-        display: ['"SF Pro Display"', '"Segoe UI"', 'system-ui', '-apple-system', 'sans-serif'],
-        body: ['"SF Pro Text"', '"Segoe UI"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"SF Pro Display"', '"Segoe UI"', 'system-ui', 'sans-serif'],
+        body: ['"SF Pro Text"', '"Segoe UI"', 'system-ui', 'sans-serif'],
       },
       fontWeight: {
         'black': '900',
@@ -32,6 +37,14 @@ export default {
         'rotate-slow': 'rotate-slow 20s linear infinite',
         'shimmer': 'shimmer 3s linear infinite',
         'orbit': 'orbit 12s linear infinite',
+        'marquee': 'marquee 30s linear infinite',
+        'marquee-fast': 'marquee 20s linear infinite',
+      },
+      keyframes: {
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
     },
   },

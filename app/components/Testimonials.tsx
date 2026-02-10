@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Testimonials() {
   const testimonials = [
@@ -8,128 +9,94 @@ export default function Testimonials() {
       quote: "Finally, someone gets it. My Optimus needs professional attire for client meetings.",
       author: "Sarah Chen",
       role: "CEO, TechVentures",
-      initial: "S"
     },
     {
       quote: "The protective gear saved my Figure 01 from weather damage. Essential for outdoor work.",
       author: "Marcus Rodriguez",
       role: "Construction Manager",
-      initial: "M"
     },
     {
       quote: "Game changer for our hospitality robots. Guests love the branded uniforms.",
       author: "Emily Park",
       role: "Hotel Director",
-      initial: "E"
     }
   ]
 
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActive((prev) => (prev + 1) % testimonials.length)
+    }, 6000)
+    return () => clearInterval(interval)
+  }, [testimonials.length])
+
   return (
     <section className="py-32 px-6 lg:px-12 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-[#00D9FF]/5 to-black" />
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-purple-500/10 blur-[200px]"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#CCFF00]/[0.02] to-[#050505]" />
 
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[clamp(2.5rem,6vw,4rem)] font-black text-white mb-4"
-          >
-            Trusted by <span className="text-[#00D9FF]">Innovators</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-gray-400"
-          >
-            See what early adopters are saying
-          </motion.p>
-        </div>
+      <div className="max-w-4xl mx-auto relative z-10">
+        {/* Section label */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block text-[10px] font-display uppercase tracking-[0.3em] text-[#CCFF00]/60 mb-4">
+            Testimonials
+          </span>
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-white">
+            Trusted by <span className="text-gradient-lime">Innovators</span>
+          </h2>
+        </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((item, i) => (
+        {/* Single featured testimonial */}
+        <div className="relative min-h-[200px]">
+          {/* Giant quote mark */}
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[120px] leading-none font-display text-[#CCFF00]/[0.06] select-none pointer-events-none">
+            &ldquo;
+          </div>
+
+          <AnimatePresence mode="wait">
             <motion.div
-              key={i}
+              key={active}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative"
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
             >
-              {/* Glow on hover */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-[#00D9FF]/20 to-purple-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition duration-500" />
-              
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] border border-white/10 backdrop-blur-xl group-hover:border-[#00D9FF]/30 transition-all">
-                {/* Quote Icon */}
-                <div className="text-4xl text-[#00D9FF]/30 mb-4">"</div>
-                
-                {/* Quote */}
-                <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-                  {item.quote}
-                </p>
-                
-                {/* Author */}
-                <div className="flex items-center gap-4 pt-6 border-t border-white/5">
-                  <div className="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-xl font-bold text-cyan-400">
-                    {item.initial}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-white">{item.author}</div>
-                    <div className="text-sm text-gray-500">{item.role}</div>
-                  </div>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-display font-light text-white leading-relaxed mb-10 max-w-3xl mx-auto">
+                &ldquo;{testimonials[active].quote}&rdquo;
+              </p>
+              <div>
+                <div className="font-display font-semibold text-white text-lg">
+                  {testimonials[active].author}
+                </div>
+                <div className="text-sm text-zinc-500 mt-1">
+                  {testimonials[active].role}
                 </div>
               </div>
             </motion.div>
-          ))}
+          </AnimatePresence>
         </div>
 
-        {/* Trust Badges */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-20 pt-12 border-t border-white/5"
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { label: 'Industry Leaders', value: '50+' },
-              { label: 'Perfect Fit Rate', value: '99%' },
-              { label: 'Support Response', value: '<1hr' },
-              { label: 'Customer Rating', value: '4.9/5' },
-            ].map((badge, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group text-center"
-              >
-                <div className="text-4xl font-black text-white mb-2 group-hover:text-cyan-400 transition-colors">
-                  {badge.value}
-                </div>
-                <div className="text-sm text-zinc-500">{badge.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Dot navigation */}
+        <div className="flex items-center justify-center gap-3 mt-12">
+          {testimonials.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              className={`transition-all duration-300 rounded-full ${
+                i === active
+                  ? 'w-8 h-2 bg-[#CCFF00]'
+                  : 'w-2 h-2 bg-zinc-700 hover:bg-zinc-500'
+              }`}
+              aria-label={`View testimonial ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   )
